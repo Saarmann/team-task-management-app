@@ -9,7 +9,7 @@ import MasterContainer from './components/containers/MasterContainer';
 function App() {
   return (
     
-     <SignUp/>
+     <MasterContainer/>
 
   );
 }

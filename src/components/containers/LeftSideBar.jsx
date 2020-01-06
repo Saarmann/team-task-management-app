@@ -24,6 +24,14 @@ export default class LeftSideBar extends React.Component {
     <div className="sidebar-scrollbar">
         {/* <!-- sidebar menu --> */}
         <ul className="nav sidebar-inner" id="sidebar-menu">
+            
+            <li className="has-sub">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/inbox">
+                    <i className="mdi mdi-email-outline"></i>
+                    <span className="nav-text">Inbox</span> <b className="caret"></b>
+                </Link>
+            </li>
+            
             <li className="has-sub active">
                 <Link className="sidenav-item-link" href="javascript:void(0)" to="/main">
                     <i className="mdi mdi-view-dashboard-outline"></i>
@@ -64,3 +72,4 @@ export default class LeftSideBar extends React.Component {
         );
     }
 }
+

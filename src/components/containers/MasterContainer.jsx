@@ -8,6 +8,7 @@ import TaskContainer from './TaskContainer';
 import InvoiceContainer from './InvoiceContainer';
 import TimeContainer from './TimeContainer';
 import Reports from './ReportContainer';
+import Inbox from './InboxContainer';
 
 export default class MasterContainer extends React.Component {
 
@@ -33,13 +34,14 @@ export default class MasterContainer extends React.Component {
                             <Header/>
 
                            <Switch>
+                                <Route path="/inbox" component={Inbox}/>
                                 <Route path="/main" component={PageContent}/>
                                 <Route path="/mytasks" component={TaskContainer}/>
                                 <Route path="/time" component={TimeContainer}/>
                                 <Route path="/invoices" component={InvoiceContainer}/>
                                 <Route path="/reports" component={Reports}/>
                            </Switch>
-                           
+
                             <Footer/>
 
                     </div>

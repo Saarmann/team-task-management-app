@@ -49,7 +49,7 @@ export default class Header extends React.Component {
                             {/* <!-- User Account --> */}
                             <li className="dropdown user-menu">
                                 <button href="#" className="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <img src="assets/img/user.png" className="user-image" alt="User Image" />
+                                    <img src="" className="user-image" alt="User Image" />
                                     <span className="d-none d-lg-inline-block">Abdus Salam</span>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-right">

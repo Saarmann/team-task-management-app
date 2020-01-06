@@ -3,6 +3,11 @@ import Header from './Header';
 import PageContent from './PageContent';
 import Footer from './Footer';
 import LeftSideBar from './LeftSideBar';
+import {Route, Switch} from 'react-router-dom';
+import TaskContainer from './TaskContainer';
+import InvoiceContainer from './InvoiceContainer';
+import TimeContainer from './TimeContainer';
+import Reports from './ReportContainer';
 
 export default class MasterContainer extends React.Component {
 
@@ -26,7 +31,15 @@ export default class MasterContainer extends React.Component {
                     <div className="page-wrapper">
 
                             <Header/>
-                            <PageContent/>
+
+                           <Switch>
+                                <Route path="/main" component={PageContent}/>
+                                <Route path="/mytasks" component={TaskContainer}/>
+                                <Route path="/time" component={TimeContainer}/>
+                                <Route path="/invoices" component={InvoiceContainer}/>
+                                <Route path="/reports" component={Reports}/>
+                           </Switch>
+                           
                             <Footer/>
 
                     </div>

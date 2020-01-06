@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
 export default class LeftSideBar extends React.Component {
     constructor(props) {
         super(props)
@@ -23,34 +25,38 @@ export default class LeftSideBar extends React.Component {
         {/* <!-- sidebar menu --> */}
         <ul className="nav sidebar-inner" id="sidebar-menu">
             <li className="has-sub active">
-                <a className="sidenav-item-link" href="javascript:void(0)">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/main">
                     <i className="mdi mdi-view-dashboard-outline"></i>
                     <span className="nav-text">Dashboard</span> <b className="caret"></b>
-                </a>
+                </Link>
             </li>
+
             <li className="has-sub" >
-                <a className="sidenav-item-link" href="javascript:void(0)">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/mytasks">
                     <i className="mdi mdi-pencil-box-multiple"></i>
                     <span className="nav-text">My Tasks</span> <b className="caret"></b>
-                </a>
+                </Link>
             </li>
+
             <li className="has-sub" >
-                <a className="sidenav-item-link" href="javascript:void(0)">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/time">
                     <i className="mdi mdi-account-clock"></i>
                     <span className="nav-text">Time</span> <b className="caret"></b>
-                </a>
+                </Link>
             </li>
+
             <li className="has-sub" >
-                <a className="sidenav-item-link" href="javascript:void(0)">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/invoices">
                     <i className="mdi mdi-cash-multiple"></i>
                     <span className="nav-text">Invoicing</span> <b className="caret"></b>
-                </a>
+                </Link>
             </li>
+
             <li className="has-sub" >
-                <a className="sidenav-item-link" href="javascript:void(0)">
+                <Link className="sidenav-item-link" href="javascript:void(0)" to="/reports">
                     <i className="mdi mdi-file-chart"></i>
                     <span className="nav-text">Reports</span> <b className="caret"></b>
-                </a>
+                </Link>
             </li>
         </ul>
     </div>

@@ -12,7 +12,7 @@ const customerDetails = (e)=> {
 const formatEditCustomerButton =(cell, row)=>{  
     let clickHandler=customerDetails;
     var emptyContent = React.createElement('i',{id:row.id,onClick:clickHandler});			
-    var aBtn = React.createElement('a',{id:row.id,className:"btn btn-primary mdi-lead-pencil-sm", onClick:clickHandler}, emptyContent);
+    var aBtn = React.createElement('a',{id:row.id,className:"btn btn-info", onClick:clickHandler}, emptyContent);
     return aBtn;	
 }
 
@@ -116,6 +116,7 @@ export default class CustomerTable extends React.Component {
                                             <BootstrapTable
                                                 keyField='id' data={customer} columns={columns}
                                                 hover
+                                                bordered={false}
                                             />
 
                                         </div>    

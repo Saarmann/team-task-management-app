@@ -12,7 +12,7 @@ const customerDetails = (e)=> {
 const formatEditCustomerButton =(cell, row)=>{  
     let clickHandler=customerDetails;
     var emptyContent = React.createElement('i',{id:row.id,onClick:clickHandler});			
-    var aBtn = React.createElement('a',{id:row.id,className:"btn btn-info", onClick:clickHandler}, emptyContent);
+    var aBtn = React.createElement('a',{id:row.id,className:"btn mdi-access-point", onClick:clickHandler}, emptyContent);
     return aBtn;	
 }
 

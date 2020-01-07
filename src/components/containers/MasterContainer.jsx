@@ -13,9 +13,9 @@ import Client from './ClientContainer';
 
 export default class MasterContainer extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
+    // constructor(props) {
+    //     super(props)
+    // }
 
     render() {
         return (

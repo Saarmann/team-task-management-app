@@ -64,7 +64,6 @@ export default class SignUp extends React.Component {
         console.log("response from echo server");
         console.log(response.data)
    
-
       }).catch((exception)=>{
         console.log(exception);
     });

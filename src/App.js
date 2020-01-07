@@ -11,7 +11,7 @@ function App() {
     
     <BrowserRouter>
       <MasterContainer/>
-     </BrowserRouter>
+    </BrowserRouter>
 
   );
 }

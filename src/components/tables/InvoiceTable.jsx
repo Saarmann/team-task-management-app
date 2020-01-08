@@ -19,8 +19,6 @@ const formatEditCustomerButton = (cell, row) => {
     return aBtn;
 }
 
-
-
 const { SearchBar } = Search;
 
 const customTotal = (from, to, size) => (

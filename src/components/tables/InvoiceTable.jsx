@@ -19,6 +19,8 @@ const formatEditCustomerButton = (cell, row) => {
     return aBtn;
 }
 
+
+
 const { SearchBar } = Search;
 
 const customTotal = (from, to, size) => (
@@ -118,17 +120,17 @@ export default class InvoiceTable extends React.Component {
 
                                 return (
                                     <div>
-                                        <div className="row">
+                                        <div className="row-between">
                                             
-                                            <div className="col-sm">
+                                            <div>
                                                 <SizePerPageDropdownStandalone { ...paginationProps } />
                                             </div>
 
-                                            <div className="col-sm">
+                                            <div>
                                                 <button type="button" className="btn btn-success">Create new invoice</button>
                                                 </div>
 
-                                            <div className="col-sm">                                                
+                                            <div>                                                
                                                 <SearchBar {...toolkitprops.searchProps} />                                                     
                                                
                                             </div>
@@ -145,10 +147,10 @@ export default class InvoiceTable extends React.Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        <div className="row-between">
                                             <div className="col-sm-8">
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div>
                                                 <div>
                                                     <PaginationListStandalone {...paginationProps}   />
                                                 </div>                                                   

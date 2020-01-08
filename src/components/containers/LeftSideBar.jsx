@@ -7,6 +7,12 @@ export default class LeftSideBar extends React.Component {
         super(props)
     }
 
+    handleEvent (event) {
+
+        document.getElementById("sidebar-menu").className = "has-sub active";
+
+    }
+
     render() {
         return (
             <div id="sidebar" className="sidebar sidebar-with-footer">
@@ -56,7 +62,7 @@ export default class LeftSideBar extends React.Component {
                         </li>
 
                         <li className="has-sub" >
-                            <Link className="sidenav-item-link" href="javascript:void(0)" to="/clients">
+                            <Link className="sidenav-item-link" href="javascript:void(0)" to="/customers">
                                 <i className="mdi mdi-folder-account-outline"></i>
                                 <span className="nav-text">Customers</span> <b className="caret"></b>
                             </Link>

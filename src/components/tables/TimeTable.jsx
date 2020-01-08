@@ -124,17 +124,17 @@ export default class TimeTable extends React.Component {
 
                                 return (
                                     <div>
-                                        <div className="row">
+                                        <div className="row-between">
                                             
-                                            <div className="col-sm">
+                                            <div>
                                                 <SizePerPageDropdownStandalone { ...paginationProps } />
                                             </div>
 
-                                            <div className="col-sm">
+                                            <div>
                                                 <button type="button" className="btn btn-success">Add new customer</button>
                                                 </div>
 
-                                            <div className="col-sm">                                                
+                                            <div>                                                
                                                 <SearchBar {...toolkitprops.searchProps} />                                                     
                                                
                                             </div>
@@ -152,10 +152,10 @@ export default class TimeTable extends React.Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        <div className="row-between">
                                             <div className="col-sm-8">
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div>
                                                 <div>
                                                     <PaginationListStandalone {...paginationProps}   />
                                                 </div>                                                   

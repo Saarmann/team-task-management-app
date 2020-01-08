@@ -128,17 +128,17 @@ export default class CustomerTablePag extends React.Component {
 
                                 return (
                                     <div>
-                                        <div className="row">
+                                        <div className="row-between">
                                             
-                                            <div className="col-sm">
-                                                <SizePerPageDropdownStandalone { ...paginationProps } />
+                                            <div >
+                                                <SizePerPageDropdownStandalone { ...paginationProps } style={{marginLeft: "10px"}}/>
                                             </div>
 
-                                            <div className="col-sm">
+                                            <div>
                                                 <button type="button" className="btn btn-success">Add new customer</button>
-                                                </div>
+                                            </div>
 
-                                            <div className="col-sm">                                                
+                                            <div >                                                
                                                 <SearchBar {...toolkitprops.searchProps} />                                                     
                                                
                                             </div>
@@ -146,7 +146,7 @@ export default class CustomerTablePag extends React.Component {
                                         <br />
 
                                         <div className="row">
-                                            <div className="col-sm-12">
+                                            <div className="col-md-12">
                                                 <BootstrapTable
                                                     bordered={false}
                                                     hover
@@ -155,10 +155,10 @@ export default class CustomerTablePag extends React.Component {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-sm-8">
+                                        <div className="row-between">
+                                            <div className="col-md-8">
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div>
                                                 <div>
                                                     <PaginationListStandalone {...paginationProps}   />
                                                 </div>                                                   

@@ -486,8 +486,18 @@ pre {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px; }
+  margin-right: -20px;
+  margin-left: -20px; 
+  justify-content: space-between;
+}
+
+.row-between {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0px;
+  margin-left: 0px; 
+  justify-content: space-between;
+}
 
 .no-gutters {
   margin-right: 0;

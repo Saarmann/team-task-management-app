@@ -13,6 +13,7 @@ import Client from './ClientContainer';
 import CustomerTable from '../tables/CustomerTable';
 import CustomerTablePag from '../tables/CustomerTablePagSearch';
 import InvoiceTable from '../tables/InvoiceTable';
+import TimeTable from '../tables/TimeTable';
 
 
 export default class MasterContainer extends React.Component {
@@ -42,7 +43,7 @@ export default class MasterContainer extends React.Component {
                                 <Route path="/inbox" component={Inbox}/>
                                 <Route path="/main" component={PageContent}/>
                                 <Route path="/mytasks" component={TaskContainer}/>
-                                <Route path="/time" component={TimeContainer}/>
+                                <Route path="/time" component={TimeTable}/>
                                 <Route path="/clients" component={CustomerTablePag}/>
                                 <Route path="/invoices" component={InvoiceTable}/>
                                 <Route path="/reports" component={Reports}/>

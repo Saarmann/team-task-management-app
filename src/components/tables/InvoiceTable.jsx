@@ -125,7 +125,7 @@ export default class InvoiceTable extends React.Component {
                                             </div>
 
                                             <div className="col-sm">
-                                                <button type="button" className="btn btn-success">Add new customer</button>
+                                                <button type="button" className="btn btn-success">Create new invoice</button>
                                                 </div>
 
                                             <div className="col-sm">                                                

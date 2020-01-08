@@ -11,6 +11,8 @@ import Reports from './ReportContainer';
 import Inbox from './InboxContainer';
 import Client from './ClientContainer';
 import CustomerTable from '../tables/CustomerTable';
+import CustomerTablePag from '../tables/CustomerTablePagSearch';
+import { customer } from '../data/customerData';
 
 export default class MasterContainer extends React.Component {
 
@@ -40,8 +42,8 @@ export default class MasterContainer extends React.Component {
                                 <Route path="/main" component={PageContent}/>
                                 <Route path="/mytasks" component={TaskContainer}/>
                                 <Route path="/time" component={TimeContainer}/>
-                                <Route path="/clients" component={CustomerTable}/>
-                                <Route path="/invoices" component={InvoiceContainer}/>
+                                <Route path="/clients" component={CustomerTablePag}/>
+                                <Route path="/invoices" component={CustomerTable}/>
                                 <Route path="/reports" component={Reports}/>
                            </Switch>
 

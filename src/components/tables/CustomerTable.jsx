@@ -1,20 +1,58 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { customer } from '../../components/data/customerData.js';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone  } from 'react-bootstrap-table2-paginator';
+
 
 const customerDetails = (e)=> {   
     //console.log(e.target);
     var { id} = e.target;
-    console.log("See Details for Id: "+id);
+    // console.log("See Details for Id: "+id);
     //hashHistory.push('/contacts/details/'+id);
 }
 
 const formatEditCustomerButton =(cell, row)=>{  
     let clickHandler=customerDetails;
     var emptyContent = React.createElement('i',{id:row.id,onClick:clickHandler});			
-    var aBtn = React.createElement('a',{id:row.id,className:"btn mdi-access-point", onClick:clickHandler}, emptyContent);
+    var aBtn = React.createElement('a',{id:row.id,className:"btn mdi mdi-lead-pencil", onClick:clickHandler}, emptyContent);
     return aBtn;	
 }
+
+const {SearchBar} = Search;
+
+const customTotal = (from, to, size) => (
+    <span className="react-bootstrap-table-pagination-total">
+        Showing {from} to {to} of {size} Results
+    </span>
+);
+
+const paginationConfig = {
+    custom: true,
+    paginationSize: 4,
+    pageStartIndex: 1,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+    nextPageTitle: 'First page',
+    prePageTitle: 'Pre page',
+    firstPageTitle: 'Next page',
+    lastPageTitle: 'Last page',
+    showTotal: true,
+    paginationTotalRenderer: customTotal,
+    sizePerPageList: [{
+      text: '10', value: 10
+    }, {
+      text: '25', value: 25
+    }, {
+        text: '50', value: 50
+    }, {
+        text: '100', value: 100
+    }, {
+      text: 'All', value: customer.length
+    }] // A numeric array is also available. the purpose of above example is custom the text
+};
 
 const columns = [{
     dataField: 'id',
@@ -73,7 +111,11 @@ export default class CustomerTable extends React.Component {
     }
 
     render() {
+
+
         return (
+            
+
 
             <div className="content-wrapper">
                 <div className="content">
@@ -103,7 +145,7 @@ export default class CustomerTable extends React.Component {
                                                 </div>
 
                                                 <div>
-                                                <button type="button" class="btn btn-success">Add new customer</button>
+                                                <button type="button" className="btn btn-success">Add new customer</button>
                                                 </div>
 
                                                 <div id="basic-data-table_filter" className="dataTables_filter">
@@ -114,7 +156,9 @@ export default class CustomerTable extends React.Component {
 
                                             </div>
                                             <BootstrapTable
-                                                keyField='id' data={customer} columns={columns}
+                                                keyField='id' 
+                                                data={customer} 
+                                                columns={columns}
                                                 hover
                                                 bordered={false}
                                             />

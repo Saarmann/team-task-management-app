@@ -56,14 +56,14 @@ export default class LeftSideBar extends React.Component {
             <li className="has-sub" >
                 <Link className="sidenav-item-link" href="javascript:void(0)" to="/clients">
                     <i className="mdi mdi-folder-account-outline"></i>
-                    <span className="nav-text">Clients</span> <b className="caret"></b>
+                    <span className="nav-text">Customers</span> <b className="caret"></b>
                 </Link>
             </li>
 
             <li className="has-sub" >
                 <Link className="sidenav-item-link" href="javascript:void(0)" to="/invoices">
                     <i className="mdi mdi-cash-multiple"></i>
-                    <span className="nav-text">Invoicing</span> <b className="caret"></b>
+                    <span className="nav-text">Invoices</span> <b className="caret"></b>
                 </Link>
             </li>
 

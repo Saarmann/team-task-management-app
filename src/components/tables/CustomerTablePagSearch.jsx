@@ -3,7 +3,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { customer } from '../../components/data/customerData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
-import Modal from 'react-modal-bootstrap'
 
 
 const customerDetails = (e) => {

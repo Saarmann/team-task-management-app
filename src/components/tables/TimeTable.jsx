@@ -10,19 +10,32 @@ const selectRow = {
    
   };
 
-const customerDetails = (e) => {
-    //console.log(e.target);
-    var { id } = e.target;
-    // console.log("See Details for Id: "+id);
-    //hashHistory.push('/contacts/details/'+id);
-}
+// const customerDetails = (e) => {
+//     //console.log(e.target);
+//     var { id } = e.target;
+//     // console.log("See Details for Id: "+id);
+//     //hashHistory.push('/contacts/details/'+id);
+// }
 
-const formatEditCustomerButton = (cell, row) => {
-    let clickHandler = customerDetails;
-    var emptyContent = React.createElement('i', { id: row.id, onClick: clickHandler });
-    var aBtn = React.createElement('a', { id: row.id, className: "mdi mdi-lead-pencil", onClick: clickHandler }, emptyContent);
-    return aBtn;
+// const formatEditCustomerButton = (cell, row) => {
+//     let clickHandler = customerDetails;
+//     var emptyContent = React.createElement('i', { id: row.id, onClick: clickHandler });
+//     var aBtn = React.createElement('a', { id: row.id, className: "mdi mdi-lead-pencil", onClick: clickHandler }, emptyContent);
+//     return aBtn;
 
+// }
+
+const createActionButtons = (cell, row) => {
+    return (
+        <div>
+            <button type="button" className="btn btn-outline-primary btn-sm ts-buttom" size="sm" >
+                Edit
+            </button>
+            <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                Delete
+            </button>
+        </div>
+    );
 }
 
 const { SearchBar } = Search;
@@ -97,7 +110,7 @@ const columns = [{
 
 }, {
     text: 'Action',
-    formatter: formatEditCustomerButton
+    formatter: createActionButtons
 }];
 
 export default class TimeTable extends React.Component {

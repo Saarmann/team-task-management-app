@@ -11,9 +11,9 @@ const selectRow = {
   };
 
 // const customerDetails = (e) => {
-//     //console.log(e.target);
+//     // console.log(e.target);
 //     var { id } = e.target;
-//     // console.log("See Details for Id: "+id);
+//     console.log("See Details for Id: "+id);
 //     //hashHistory.push('/contacts/details/'+id);
 // }
 
@@ -25,14 +25,16 @@ const selectRow = {
 
 // }
 
+ 
 const createActionButtons = (cell, row) => {
     return (
         <div>
-            <button type="button" className="btn btn-outline-primary btn-sm ts-buttom" size="sm" >
-                Edit
+            <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" >
+                {/* Edit */}
             </button>
-            <button type="button" className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
-                Delete
+            {/* ml-2 adds space between buttons */}
+            <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"> 
+                {/* Delete */}
             </button>
         </div>
     );
@@ -107,10 +109,35 @@ const columns = [{
 }, {
     dataField: 'invoiced',
     text: 'Status',
-
+    formatter: (cell, row) => {
+        if(row.invoiced) {
+            return (
+                <div>
+                    <span className="badge badge-success">Invoiced</span>
+                </div>
+            );
+        }
+            return (
+                ""
+            );
+    }
+  
 }, {
     text: 'Action',
-    formatter: createActionButtons
+    formatter: (cell, row) => {
+        if (row.invoiced) {
+            return (
+                ""
+            );
+        }
+            return (
+                <div>
+                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" ></button>
+                    <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"></button>
+                </div>
+            );
+    }
+    
 }];
 
 export default class TimeTable extends React.Component {
@@ -144,7 +171,7 @@ export default class TimeTable extends React.Component {
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Add new customer</button>
+                                                <button type="button" className="btn btn-success">Send to invoice</button>
                                                 </div>
 
                                             <div>                                                

@@ -4,13 +4,12 @@ import { customer } from '../../components/data/customerData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 
-
 const customerDetails = (e) => {
     //console.log(e.target);
     var { id } = e.target;
     // console.log("See Details for Id: "+id);
     //hashHistory.push('/contacts/details/'+id);
-}
+};
 
 const formatEditCustomerButton = (cell, row) => {
     let clickHandler = customerDetails;

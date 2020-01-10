@@ -5,13 +5,19 @@ import {Link} from 'react-router-dom';
 export default class LeftSideBar extends React.Component {
     constructor(props) {
         super(props)
+
+        // this.state = {'active': false, 'className': 'has-sub'}
     }
 
-    handleEvent (event) {
+    // handleClick () {
 
-        document.getElementById("sidebar-menu").className = "has-sub active";
+    //     if(this.state.active) {
+    //         this.setState({'active': false, 'className': 'has-sub'})
+    //     } else {
+    //         this.setState({'active': true, 'className': 'has-sub active'})
+    //     }
 
-    }
+    // }
 
     render() {
         return (

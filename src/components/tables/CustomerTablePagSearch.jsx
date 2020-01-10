@@ -7,17 +7,16 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 const customerDetails = (e) => {
     //console.log(e.target);
     var { id } = e.target;
-    // console.log("See Details for Id: "+id);
+    console.log("See Details for Id: "+id);
     //hashHistory.push('/contacts/details/'+id);
 };
 
 const formatEditCustomerButton = (cell, row) => {
     let clickHandler = customerDetails;
     var emptyContent = React.createElement('i', { id: row.id, onClick: clickHandler });
-    var aBtn = React.createElement('a', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm", onClick: clickHandler }, emptyContent);
+    var aBtn = React.createElement('button', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm", onClick: clickHandler }, emptyContent);
     return aBtn;
 }
-
 
 const { SearchBar } = Search;
 
@@ -26,6 +25,19 @@ const customTotal = (from, to, size) => (
         Showing {from} to {to} of {size} Results
     </span>
 );
+
+/*
+const customerModal = () => {
+    return (
+      <Modal show={true}>
+        <Modal.Header>
+          <Modal.Title>Hi</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>asdfasdf</Modal.Body>
+        <Modal.Footer>This is the footer</Modal.Footer>
+      </Modal>
+    );
+  };*/
 
 const paginationConfig = {
     custom: true,

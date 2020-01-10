@@ -15,7 +15,7 @@ const customerDetails = (e) => {
 const formatEditCustomerButton = (cell, row) => {
     let clickHandler = customerDetails;
     var emptyContent = React.createElement('i', { id: row.id, onClick: clickHandler });
-    var aBtn = React.createElement('a', { id: row.id, className: "mdi mdi-lead-pencil", onClick: clickHandler }, emptyContent);
+    var aBtn = React.createElement('a', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm", onClick: clickHandler }, emptyContent);
     return aBtn;
 }
 

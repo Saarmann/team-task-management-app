@@ -4,6 +4,11 @@ import { customer } from '../../components/data/customerData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 
+import '@trendmicro/react-modal/dist/react-modal.css';
+import Modal from '@trendmicro/react-modal';
+import '@trendmicro/react-buttons/dist/react-buttons.css';
+// import { Button, ButtonGroup, ButtonToolbar } from '@trendmicro/react-buttons';
+
 const customerDetails = (e) => {
     //console.log(e.target);
     var { id } = e.target;
@@ -25,19 +30,6 @@ const customTotal = (from, to, size) => (
         Showing {from} to {to} of {size} Results
     </span>
 );
-
-/*
-const customerModal = () => {
-    return (
-      <Modal show={true}>
-        <Modal.Header>
-          <Modal.Title>Hi</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>asdfasdf</Modal.Body>
-        <Modal.Footer>This is the footer</Modal.Footer>
-      </Modal>
-    );
-  };*/
 
 const paginationConfig = {
     custom: true,
@@ -120,6 +112,21 @@ export default class CustomerTablePag extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+
+        this.state = {
+            openModal: false
+        }
+    }
+
+    openModal (){
+        this.setState({openModal: true})
+    }
+
+    closeModal (){
+        this.setState({openModal: false})
     }
 
     render() {
@@ -141,6 +148,98 @@ export default class CustomerTablePag extends React.Component {
 
                                 return (
                                     <div>
+                                        
+                                        {
+                                            this.state.openModal &&
+                                            <Modal size={400} onClose={ this.closeModal}>
+                                                <Modal.Header>
+                                                    <Modal.Title>
+                                                        Add new customer
+                                                    </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body padding>
+                                                        
+                                                                <div className="card-body">
+                                                                    <form >
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-12 mb-3">
+                                                                                <label for="validationServer01">Customer name</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({name: e.target.value})} className="form-control" id="validationServer01" placeholder="Company name" required/>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Registration code</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({regCode: e.target.value})} className="form-control" id="validationServer03" placeholder="Code" required/>
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer04">VAT No.</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({vatNo: e.target.value})} className="form-control" id="validationServer04" placeholder="Number"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer01">Address</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({address: e.target.value})} className="form-control" id="validationServer01" placeholder="Street address"/>
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">City</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({city: e.target.value})} className="form-control" id="validationServer03" placeholder="City"/>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Country</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({city: e.target.value})} className="form-control" id="validationServer03" placeholder="Country"/>
+                                                                            </div>
+                                                                            <div className="col-md-3 mb-3">
+                                                                                <label for="validationServer04">State</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({state: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
+
+                                                                            </div>
+                                                                            <div className="col-md-3 mb-3">
+                                                                                <label for="validationServer05">Zip</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({zip: e.target.value})} className="form-control" id="validationServer05" placeholder="Zip"/>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-12 mb-3">
+                                                                                <label for="validationServer02">Email address</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({email: e.target.value})} className="form-control" id="validationServer02" placeholder="Email"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Contact</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({phone: e.target.value})} className="form-control" id="validationServer03" placeholder="Phone number"/>
+
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer04">Payment term</label>
+                                                                                <input type="text" onChange={ (e) => this.setState({payment: e.target.value})} className="form-control" id="validationServer04" placeholder="Days"/>
+                                                                            </div>
+                                                                        </div>
+                                                                                                                                            
+                                                                    </form>
+                                                                </div>
+                                                          
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.closeModal }>Save customer</button>
+                                                    <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
+                                                   
+                                                </Modal.Footer>
+                                            </Modal>
+
+                                        }
+
                                         <div className="row-between">
                                             
                                             <div >
@@ -148,7 +247,7 @@ export default class CustomerTablePag extends React.Component {
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Add new customer</button>
+                                                <button type="button" onClick={ this.openModal} className="btn btn-success">Add new customer</button>
                                             </div>
 
                                             <div >                                                
@@ -205,7 +304,7 @@ export default class CustomerTablePag extends React.Component {
                                     {contentTable}
                                 </PaginationProvider>
 
-                            </div>
+                           </div>
                         </div>
                     </div>
 

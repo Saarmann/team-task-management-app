@@ -146,7 +146,7 @@ const columns = [{
 
         if(row.status) {
             return (
-                React.createElement('button', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm"})
+               React.createElement('button', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm"})
 
 
             )

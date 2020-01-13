@@ -33,21 +33,6 @@ export default class UserInfo extends React.Component {
 												<p>Albrecht.straub@gmail.com</p>
 												<p className="text-dark font-weight-medium pt-4 mb-2">Phone Number</p>
 												<p>+99 9539 2641 31</p>
-												<p className="text-dark font-weight-medium pt-4 mb-2">Social Profile</p>
-												<p className="pb-3 social-button">
-													<a className="mb-1 btn btn-outline btn-twitter rounded-circle">
-														<i className="mdi mdi-twitter"></i>
-													</a>
-													<a className="mb-1 btn btn-outline btn-linkedin rounded-circle">
-														<i className="mdi mdi-linkedin"></i>
-													</a>
-													<a className="mb-1 btn btn-outline btn-facebook rounded-circle">
-														<i className="mdi mdi-facebook"></i>
-													</a>
-													<a className="mb-1 btn btn-outline btn-skype rounded-circle">
-														<i className="mdi mdi-skype"></i>
-													</a>
-												</p>
 											</div>
 										</div>
 									</div>
@@ -76,31 +61,41 @@ export default class UserInfo extends React.Component {
                                 <div className="col-lg-6">
                                   <div className="form-group">
                                     <label for="firstName">First name</label>
-                                    <input type="text" className="form-control" id="firstName" value="Albrecht"/>
+                                    <input type="text" className="form-control" id="firstName" />
                                   </div>
                                 </div>
 
                                 <div className="col-lg-6">
                                   <div className="form-group">
                                     <label for="lastName">Last name</label>
-                                    <input type="text" className="form-control" id="lastName" value="Straub"/>
+                                    <input type="text" className="form-control" id="lastName" />
                                   </div>
                                 </div>
                               </div>
 
-                              <div className="form-group mb-4">
-                                <label for="email">Email</label>
-                                <input type="email" className="form-control" id="email" value="albrecht.straub@gmail.com"/>
+                              <div className="row mb-2">
+                                <div className="col-lg-12">
+                                  <div className="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" className="form-control" id="email" />
+                                  </div>
+                                </div>
                               </div>
+                              
+                              <div className="row mb-2">
+                                <div className="col-lg-6">
+                                  <div className="form-group">
+                                    <label for="firstName">Old password</label>
+                                    <input type="text" className="form-control" id="firstName" />
+                                  </div>
+                                </div>
 
-                              <div className="form-group mb-4">
-                                <label for="oldPassword">Old password</label>
-                                <input type="password" className="form-control" id="oldPassword"/>
-                              </div>
-
-                              <div className="form-group mb-4">
-                                <label for="newPassword">New password</label>
-                                <input type="password" className="form-control" id="newPassword"/>
+                                <div className="col-lg-6">
+                                  <div className="form-group">
+                                    <label for="lastName">New password</label>
+                                    <input type="text" className="form-control" id="lastName" />
+                                  </div>
+                                </div>
                               </div>
 
                               <div className="d-flex justify-content-end mt-5">

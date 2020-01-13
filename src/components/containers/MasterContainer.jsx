@@ -16,6 +16,7 @@ import InvoiceTable from '../tables/InvoiceTable';
 import TimeTable from '../tables/TimeTable';
 import CustomerModal from '../tables/CustomerModal';
 import Invoice from './Invoice';
+import UserInfo from './userInfo';
 
 
 export default class MasterContainer extends React.Component {
@@ -43,7 +44,7 @@ export default class MasterContainer extends React.Component {
 
                            <Switch>
                                 <Route path="/inbox" component={Invoice}/>
-                                <Route path="/main" component={PageContent}/>
+                                <Route path="/main" component={UserInfo}/>
                                 <Route path="/mytasks" component={TaskContainer}/>
                                 <Route path="/time" component={TimeTable}/>
                                 <Route path="/customers" component={CustomerTablePag}/>

@@ -5,8 +5,6 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
-import '@trendmicro/react-buttons/dist/react-buttons.css';
-// import { Button, ButtonGroup, ButtonToolbar } from '@trendmicro/react-buttons';
 
 const axios = require("axios");
 

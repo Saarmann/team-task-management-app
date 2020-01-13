@@ -3,11 +3,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { customer } from '../../components/data/customerData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
-
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 // import { Button, ButtonGroup, ButtonToolbar } from '@trendmicro/react-buttons';
+
+const axios = require("axios");
 
 const customerDetails = (e) => {
     //console.log(e.target);
@@ -57,6 +58,8 @@ const paginationConfig = {
         text: 'All', value: customer.length
     }] // A numeric array is also available. the purpose of above example is custom the text
 };
+
+
 
 const columns = [{
     dataField: 'id',
@@ -118,6 +121,7 @@ export default class CustomerTablePag extends React.Component {
         this.saveCustomer = this.saveCustomer.bind(this);
 
         this.state = {
+            myTestData: [],
             openModal: false,
             id: "",
             customerName: "",
@@ -135,6 +139,20 @@ export default class CustomerTablePag extends React.Component {
         }
     }
 
+    componentDidMount () {
+    
+        axios.get("https://api.mockaroo.com/api/6452bc80?count=30&key=a404b6a0")
+        .then((customerData) => {
+    
+        this.setState({myTestData: customerData.data});    
+        //   console.log(customerData.data);
+    
+        }).catch((exception)=>{
+          console.log(exception);
+        });
+    
+    }
+
     openModal (){
         this.setState({openModal: true})
     }
@@ -143,7 +161,22 @@ export default class CustomerTablePag extends React.Component {
         this.setState({openModal: false})
     }
 
-    saveCustomer(e) {
+    clearCustomerModal() {
+
+        this.setState({customerName: ""});
+        this.setState({registrationCode: ""});
+        this.setState({vatNo: ""});
+        this.setState({address: ""});
+        this.setState({city: ""});
+        this.setState({customerState: ""});
+        this.setState({zip: ""});
+        this.setState({customerEmail: ""});
+        this.setState({contact: ""});
+        this.setState({paymentTerm: ""});
+
+    }
+
+    saveCustomer() {
 
         let customerData = {
             
@@ -162,6 +195,7 @@ export default class CustomerTablePag extends React.Component {
 
         console.log(customerData);
         this.setState({openModal: false});
+        this.clearCustomerModal();
     }
 
     render() {
@@ -175,7 +209,7 @@ export default class CustomerTablePag extends React.Component {
                     <ToolkitProvider
                         keyField="id"
                         columns={ columns }
-                        data={ customer }
+                        data={ this.state.myTestData }
                         search
                     >
                         {

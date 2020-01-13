@@ -65,11 +65,11 @@ export default class Header extends React.Component {
                                     <li>
                                         <a href="user-profile.html">
                                             <i className="mdi mdi-account"></i> My Profile
-                        </a>
+                                    </a>
                                     </li>
                                     <li>
                                         <a href="index.html">
-                                            <i className="mdi mdi-logout"></i> Projects </a>
+                                            <i className="mdi mdi-logout"></i> Logout </a>
                                     </li>
 
                                 </ul>

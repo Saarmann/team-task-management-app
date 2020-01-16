@@ -43,6 +43,7 @@ export default class MasterContainer extends React.Component {
                             <Header/>
 
                            <Switch>
+                                <Route path="/user" component={UserInfo}/>
                                 <Route path="/inbox" component={Invoice}/>
                                 <Route path="/main" component={UserInfo}/>
                                 <Route path="/mytasks" component={TaskContainer}/>

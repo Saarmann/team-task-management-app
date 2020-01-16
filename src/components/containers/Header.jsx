@@ -1,11 +1,29 @@
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props); 
+
+        this.state = {
+
+            class: "dropdown-menu dropdown-menu-right"
+
+        }
+        this.openUserMenu = this.openUserMenu.bind(this);
     }
+
+    openUserMenu = () => {
+        if(this.state.class == "dropdown-menu dropdown-menu-right") {
+
+        this.setState({class: "dropdown-menu dropdown-menu-right show"})
+    }   else {
+        this.setState({class: "dropdown-menu dropdown-menu-right"});
+
+    };
+}
 
     render() {
         return (
@@ -48,11 +66,11 @@ export default class Header extends React.Component {
 
                             {/* <!-- User Account --> */}
                             <li className="dropdown user-menu">
-                                <button href="#" className="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <button href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" onClick={this.openUserMenu}>
                                     <img src="assets/img/user/user.png" className="user-image" alt="User Image" />
                                     <span className="d-none d-lg-inline-block">Abdus Salam</span>
                                 </button>
-                                <ul className="dropdown-menu dropdown-menu-right">
+                                <ul className={this.state.class}>
                                     {/* <!-- User image --> */}
                                     <li className="dropdown-header">
                                         <img src="assets/img/user/user.png" className="img-circle" alt="User Image" />
@@ -63,9 +81,9 @@ export default class Header extends React.Component {
 
 
                                     <li>
-                                        <a href="user-profile.html">
+                                        <Link to="/user" onClick={this.openUserMenu}>
                                             <i className="mdi mdi-account"></i> My Profile
-                                    </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a href="index.html">

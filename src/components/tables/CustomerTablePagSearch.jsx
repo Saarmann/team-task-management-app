@@ -64,16 +64,16 @@ const columns = [{
     text: 'ID'
 
 }, {
-    dataField: 'customer_name',
+    dataField: 'customerName',
     text: 'Customer name',
     sort: true
 
 }, {
-    dataField: 'registration_code',
+    dataField: 'registrationCode',
     text: 'Registration No.'
 
 }, {
-    dataField: 'vat_no',
+    dataField: 'vatNo',
     text: 'VAT No.'
 
 }, {
@@ -93,7 +93,7 @@ const columns = [{
     text: 'Zip code'
 
 }, {
-    dataField: 'customer_email',
+    dataField: 'customermail',
     text: 'Email'
 
 }, {
@@ -101,7 +101,7 @@ const columns = [{
     text: 'Contact phone'
 
 }, {
-    dataField: 'payment_term',
+    dataField: 'paymentTerm',
     text: 'Payment term'
 
 }, {
@@ -139,7 +139,7 @@ export default class CustomerTablePag extends React.Component {
 
     componentDidMount () {
     
-        axios.get("https://api.mockaroo.com/api/6452bc80?count=30&key=a404b6a0")
+        axios.get("http://localhost:8080/rest/customer/")
         .then((customerData) => {
     
         this.setState({myTestData: customerData.data});    

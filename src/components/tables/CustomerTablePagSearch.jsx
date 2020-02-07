@@ -75,7 +75,7 @@ export default class CustomerTablePag extends React.Component {
             address: "",
             country: "",
             city: "",
-            customerState: "",
+            state: "",
             zip: "",
             customerEmail: "",
             contact: "",
@@ -85,13 +85,15 @@ export default class CustomerTablePag extends React.Component {
     }
 
     componentDidMount () {
-    
+        this.showCustomerList();
+    }
+
+    showCustomerList () {
         axios.get(`${URL_API}/customer/`)
         .then((customerData) => {
     
         this.setState({myTestData: customerData.data});    
-        //   console.log(customerData.data);
-    
+     
         }).catch((exception)=>{
           console.log(exception);
         });
@@ -102,10 +104,12 @@ export default class CustomerTablePag extends React.Component {
     }
 
     closeModal (){
+        this.clearCustomerModal();
         this.setState({openModal: false})
     }
 
     closeEditModal (){
+        this.clearCustomerModal();
         this.setState({openEditModal: false})
     }
 
@@ -116,7 +120,7 @@ export default class CustomerTablePag extends React.Component {
         this.setState({vatNo: ""});
         this.setState({address: ""});
         this.setState({city: ""});
-        this.setState({customerState: ""});
+        this.setState({state: ""});
         this.setState({country: ""});
         this.setState({zip: ""});
         this.setState({customerEmail: ""});
@@ -133,7 +137,7 @@ export default class CustomerTablePag extends React.Component {
             vatNo: this.state.vatNo,
             address: this.state.address,
             city: this.state.city,
-            customerState: this.state.customerState,
+            customerState: this.state.state,
             country: this.state.country,
             zip: this.state.zip,
             customerEmail: this.state.customerEmail,
@@ -149,7 +153,7 @@ export default class CustomerTablePag extends React.Component {
       
         this.setState({openModal: false});
         this.clearCustomerModal();
-        this.componentDidMount();
+        this.showCustomerList();
     }
 
     editCustomer(id) {
@@ -161,7 +165,7 @@ export default class CustomerTablePag extends React.Component {
             vatNo: this.state.vatNo,
             address: this.state.address,
             city: this.state.city,
-            customerState: this.state.customerState,
+            state: this.state.state,
             country: this.state.country,
             zip: this.state.zip,
             customerEmail: this.state.customerEmail,
@@ -177,7 +181,7 @@ export default class CustomerTablePag extends React.Component {
       
         this.setState({openEditModal: false});
         this.clearCustomerModal();
-        this.componentDidMount();
+        this.showCustomerList();
     }
 
     render() {
@@ -198,7 +202,7 @@ export default class CustomerTablePag extends React.Component {
               this.setState({customerName: response.data.customerName});
               this.setState({paymentTerm: response.data.paymentTerm});
               this.setState({registrationCode: response.data.registrationCode});
-              this.setState({customerState: response.data.state});
+              this.setState({state: response.data.state});
               this.setState({vatNo: response.data.vatNo});
               this.setState({zip: response.data.zip});
               this.setState({id: id});  
@@ -215,10 +219,10 @@ export default class CustomerTablePag extends React.Component {
         }
 
         const columns = [{
-            dataField: 'id',
-            text: 'ID'
+        //     dataField: 'id',
+        //     text: 'ID'
         
-        }, {
+        // }, {
             dataField: 'customerName',
             text: 'Customer name',
             sort: true
@@ -331,7 +335,7 @@ export default class CustomerTablePag extends React.Component {
                                                                             </div>
                                                                             <div className="col-md-3 mb-3">
                                                                                 <label for="validationServer04">State</label>
-                                                                                <input type="text" value={this.customerState} onChange={(e) => this.setState({customerState: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
+                                                                                <input type="text" value={this.state} onChange={(e) => this.setState({state: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
 
                                                                             </div>
                                                                             <div className="col-md-3 mb-3">
@@ -422,7 +426,7 @@ export default class CustomerTablePag extends React.Component {
                                                                             </div>
                                                                             <div className="col-md-3 mb-3">
                                                                                 <label for="validationServer04">State</label>
-                                                                                <input type="text" value={this.state.customerState} onChange={(e) => this.setState({customerState: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
+                                                                                <input type="text" value={this.state.state} onChange={(e) => this.setState({state: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
 
                                                                             </div>
                                                                             <div className="col-md-3 mb-3">

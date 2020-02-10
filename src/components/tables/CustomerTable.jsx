@@ -8,6 +8,7 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 const customerDetails = (e)=> {   
     //console.log(e.target);
     var { id} = e.target;
+    
     // console.log("See Details for Id: "+id);
     //hashHistory.push('/contacts/details/'+id);
 }

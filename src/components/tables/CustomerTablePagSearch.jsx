@@ -5,10 +5,9 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
-// import {URL_API} from 'config.js';
+import {URL_API} from '../../config.js';
 
 const axios = require("axios");
-const URL_API = "http://localhost:8080/rest"; //import from config eventually
 
 const { SearchBar } = Search;
 
@@ -89,7 +88,7 @@ export default class CustomerTablePag extends React.Component {
     }
 
     showCustomerList () {
-        axios.get(`${URL_API}/customer/`)
+        axios.get(URL_API+`/customer/`)
         .then((customerData) => {
     
         this.setState({myTestData: customerData.data});    
@@ -145,7 +144,7 @@ export default class CustomerTablePag extends React.Component {
             paymentTerm: this.state.paymentTerm
         }
 
-        axios.post(`${URL_API}/customer/save`, customerData, options)
+        axios.post(URL_API+`/customer/save`, customerData, options)
         .then((response) => {
             console.log(response)
         }).catch((exception)=>{
@@ -173,7 +172,7 @@ export default class CustomerTablePag extends React.Component {
             paymentTerm: this.state.paymentTerm
         }
 
-        axios.post(`${URL_API}/customer/edit`, customerData, options)
+        axios.post(URL_API+`/customer/edit`, customerData, options)
         .then((response) => {
             console.log(response)
         }).catch((exception)=>{
@@ -191,7 +190,7 @@ export default class CustomerTablePag extends React.Component {
             var { id } = e.target;
             this.setState({openEditModal: true});
                         
-            axios.get(`${URL_API}/customer/`+id)
+            axios.get(URL_API+`/customer/`+id)
             .then((response) => {
                 
               this.setState({address: response.data.address}); 
@@ -460,7 +459,7 @@ export default class CustomerTablePag extends React.Component {
                                                           
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={ () => this.editCustomer(this.state.id) }>Save customer</button>
+                                                    <button type="button" class="btn btn-primary" onClick={ () => this.editCustomer(this.state.id) }>Update customer</button>
                                                     <button type="button" class="btn btn-danger" onClick={ this.closeEditModal }>Close</button>
                                                    
                                                 </Modal.Footer>

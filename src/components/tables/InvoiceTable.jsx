@@ -3,6 +3,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { invoices } from '../../components/data/invoices.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
+import {URL_API} from '../../config.js';
+
+const axios = require("axios");
+const options = {
+    headers: {"Content-Type": "application/json","Accept": "application/json" },
+  };
 
 const selectRow = {
     mode: 'checkbox',
@@ -63,7 +69,7 @@ const paginationConfig = {
 };
 
 const columns = [{
-    dataField: 'invoice_nr',
+    dataField: 'invoiceNumber',
     text: 'Number',
     style: {
         fontWeight: 'bold'
@@ -71,17 +77,17 @@ const columns = [{
     sort: true
 
 }, {
-    dataField: 'invoice_date',
+    dataField: 'invoiceDate',
     text: 'Date',
     sort: true
 
 }, {
-    dataField: 'customer_name',
+    dataField: 'customer.customerName',
     text: 'Customer',
     sort: true
 
 }, {
-    dataField: 'amount',
+    dataField: 'invoiceAmount',
     text: 'Amount',
     sort: true
 
@@ -91,44 +97,38 @@ const columns = [{
     sort: true
 
 }, {
-    dataField: 'due_date',
+    dataField: 'dueDate',
     text: 'Payment date',
     sort: true
 
 }, {
-    dataField: 'status',
+    dataField: 'invoiceStatus',
     text: 'Status',
     sort: true,
     formatter: (cell, row) => {
 
-        let rowStatus = row.status;
-
-        if(rowStatus === true) {
+        if(cell.status != 0) {
             return (
                 <div>
                     <span className="badge badge-success">Confirmed</span>
                 </div>
             );
-        } else if (rowStatus === false){
+        } 
             return (
                 <div>
                     <span className="badge badge-warning">On hold</span>
                 </div>
             );
-        }
-            return (
-                ""
-            );
-            
+                    
     }
 
 },  {
-    dataField: 'sent',
+    dataField: 'invoiceSent',
     text: 'Sent',
     sort: true,
-    formatter: (cell, row) => {
+    formatter: (row) => {
         
-        if(row.sent) {
+        if(row.sent != 0) {
            return(
            <div>
                 <span class="mdi mdi-check" style={{color: "#29cc97", fontSize: "23px"}}></span>
@@ -161,6 +161,26 @@ export default class InvoiceTable extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state ={
+            invoicesData: []
+        }
+    }
+
+    componentWillMount() {
+        this.showInvoiceList();
+    }
+
+    showInvoiceList(){
+        axios.get(URL_API+`/invoice/`)
+        .then((invoices) => {
+    
+            this.setState({invoicesData: invoices.data});    
+            console.log(invoices.data);
+
+            }).catch((exception)=>{
+              console.log(exception);
+            });
     }
 
     render() {
@@ -173,7 +193,7 @@ export default class InvoiceTable extends React.Component {
                     <ToolkitProvider
                         keyField="id"
                         columns={ columns }
-                        data={ invoices }
+                        data={ this.state.invoicesData }
                         search
                        
                     >

@@ -68,7 +68,7 @@ export default class Header extends React.Component {
                             <li className="dropdown user-menu">
                                 <button href="#" className="dropdown-toggle nav-link" data-toggle="dropdown" onClick={this.openUserMenu}>
                                     <img src="assets/img/user/user.png" className="user-image" alt="User Image" />
-                                    <span className="d-none d-lg-inline-block">Abdus Salam</span>
+                                    <span className="d-none d-lg-inline-block">Mickey Mouse</span>
                                 </button>
                                 <ul className={this.state.class}>
                                     {/* <!-- User image --> */}

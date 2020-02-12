@@ -3,18 +3,14 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { invoices } from '../../components/data/invoices.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
-import {URL_API} from '../../config.js';
+import '@trendmicro/react-modal/dist/react-modal.css';
+import Modal from '@trendmicro/react-modal';
+import { URL_API } from '../../config.js';
 
 const axios = require("axios");
 const options = {
-    headers: {"Content-Type": "application/json","Accept": "application/json" },
-  };
-
-const selectRow = {
-    mode: 'checkbox',
-    clickToSelect: true,
-   
-  };
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+};
 
 const customerDetails = (e) => {
     //console.log(e.target);
@@ -73,7 +69,7 @@ const columns = [{
     text: 'Number',
     style: {
         fontWeight: 'bold'
-      },
+    },
     sort: true
 
 }, {
@@ -89,52 +85,67 @@ const columns = [{
 }, {
     dataField: 'invoiceAmount',
     text: 'Amount',
+    headerAlign: 'center',
+    style: {
+        textAlign: 'center'
+    },
     sort: true
 
 }, {
-    dataField: 'submitter',
+    dataField: 'user.email',
     text: 'Submitter',
     sort: true
 
 }, {
     dataField: 'dueDate',
     text: 'Payment date',
+    headerAlign: 'center',
+    style: {
+        textAlign: 'center'
+    },
     sort: true
 
 }, {
     dataField: 'invoiceStatus',
     text: 'Status',
+    headerAlign: 'center',
+    style: {
+        textAlign: 'center'
+    },
     sort: true,
     formatter: (cell, row) => {
 
-        if(cell.status != 0) {
+        if (row.invoiceStatus !== 0) {
             return (
                 <div>
                     <span className="badge badge-success">Confirmed</span>
                 </div>
             );
-        } 
-            return (
-                <div>
-                    <span className="badge badge-warning">On hold</span>
-                </div>
-            );
-                    
+        }
+        return (
+            <div>
+                <span className="badge badge-warning">On hold</span>
+            </div>
+        );
     }
 
-},  {
+}, {
     dataField: 'invoiceSent',
     text: 'Sent',
+    headerAlign: 'center',
+    style: {
+        textAlign: 'center'
+    },
     sort: true,
-    formatter: (row) => {
-        
-        if(row.sent != 0) {
-           return(
-           <div>
-                <span class="mdi mdi-check" style={{color: "#29cc97", fontSize: "23px"}}></span>
-            </div>
-           );    
-    }
+    formatter: (cell, row) => {
+
+        if (row.invoiceSent !== 0) {
+            return (
+                <div>
+                    <span class="mdi mdi-check" style={{ color: "#29cc97", fontSize: "22px" }}></span>
+                </div>
+            );
+        }
         return (
             ""
         );
@@ -142,19 +153,40 @@ const columns = [{
 
 }, {
     text: 'Action',
-    formatter: (cell, row) => {
+    style: {
+        textAlign: 'center'
+    },
+    headerAlign: 'center',
+    formatter:
+        (cell, row) => {
 
-        if(row.status) {
-            return (
-               React.createElement('button', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm"})
-
-
-            )
-            
-            
+            if (row.invoiceStatus === 1 && row.invoiceSent === 1) {
+                return (
+                    <div>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
+                    </div>
+                )
+            } else if (row.invoiceStatus === 1 && row.invoiceSent === 0) {
+                return (
+                    <div>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
+                        <button type="button" className=" btn btn-outline-info mdi mdi-email-outline btn-sm ml-2"></button>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm ml-2" ></button>
+                        <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
+                        <button type="button" className=" btn btn-outline-info mdi mdi-email-outline btn-sm ml-2"></button>
+                        <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"></button>
+                    </div>
+                )
+            }
         }
-    }
-    
 }];
 
 export default class InvoiceTable extends React.Component {
@@ -162,25 +194,52 @@ export default class InvoiceTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state ={
-            invoicesData: []
+        this.state = {
+            
+            invoicesData: [],
+            customerList: [],
+            openInvoiceModal: false
         }
+
+        this.openInvoiceModal = this.openInvoiceModal.bind(this);
+        this.closeInvoiceModal = this.closeInvoiceModal.bind(this);
+        this.showInvoiceList = this.showInvoiceList.bind(this);
+        this.showCustomerList = this.showCustomerList.bind(this);
     }
 
     componentWillMount() {
         this.showInvoiceList();
     }
 
-    showInvoiceList(){
-        axios.get(URL_API+`/invoice/`)
-        .then((invoices) => {
-    
-            this.setState({invoicesData: invoices.data});    
-            console.log(invoices.data);
+    openInvoiceModal() {
+        this.setState({ openInvoiceModal: true })
+    }
 
-            }).catch((exception)=>{
-              console.log(exception);
+    closeInvoiceModal() {
+        this.setState({ openInvoiceModal: false })
+    }
+
+    showInvoiceList() {
+        axios.get(URL_API + `/invoice/`)
+            .then((invoices) => {
+
+                this.setState({ invoicesData: invoices.data });
+                // console.log(invoices.data);
+                // console.log(invoices.data[0].customer.customerName)
+
+            }).catch((exception) => {
+                console.log(exception);
             });
+    }
+
+    showCustomerList() {
+        for(let i = 0; i < this.invoicesData.length; i++) {
+            this.statecustomerList.add(this.invoicesData[i].customer.customerName);
+        }
+        console.log(this.customerList);
+        return this.customerList;
+        
+        
     }
 
     render() {
@@ -192,29 +251,125 @@ export default class InvoiceTable extends React.Component {
 
                     <ToolkitProvider
                         keyField="id"
-                        columns={ columns }
-                        data={ this.state.invoicesData }
+                        columns={columns}
+                        data={this.state.invoicesData}
                         search
-                       
+
                     >
                         {
                             (toolkitprops) => {
 
                                 return (
                                     <div>
-                                        <div className="row-between">
+
+                                        {
+                                            this.state.openInvoiceModal &&
+                                            <Modal size={1600} onClose={this.closeInvoiceModal}>
+                                                <Modal.Header>
+                                                    <Modal.Title>
+                                                        Create new invoice
+                                                    </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body padding>
                                             
+                                                        <div className="invoice-wrapper rounded border bg-white py-5 px-3 px-md-4 px-lg-5 col-sm-12">
+
+                                                            <div className="d-flex justify-content-between">
+                                                                <h2 className="text-dark font-weight-medium">Invoice</h2>
+                                                            </div>
+
+                                                            <div className="row pt-5">
+                                                                <div className="col-sm-6 col-lg-4">
+                                                                    <p className="text-dark mb-2"><b>To</b></p>
+                                                                    <div>
+                                                                        <input type="text" value="" className="form-control" placeholder="Customer name" required/> 
+                                                                    </div>
+                                                                </div>
+                                                                                                                   
+                                                                <div className="col-sm-3 col-lg-3">
+                                                                    <p className="text-dark mb-2"><b>Invoice date</b></p>
+                                                                    <div>
+                                                                        <input type="date" className="form-control" required/> 
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="col-sm-3 col-lg-3">
+                                                                    <p className="text-dark mb-2"><b>Payment term</b></p>
+                                                                    <div>
+                                                                        <input type="text" className="form-control" placeholder="Days"/> 
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <br/>
+
+                                                            <table className="table mt-3 table-striped table-responsive table-responsive-large">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Description</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Unit Cost</th>
+                                                                        <th>Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>1 year subcription 24/7 asdasdasdasdsadsad sadsadsadsadsasad sada slkjfsljfdslkjfdslkjfdslkjfdskjfdskjfdslkjdslkj</td>
+                                                                        <td>1</td>
+                                                                        <td>$3.999,00</td>
+                                                                        <td>$3.999,00</td>
+                                                                        
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+
+                                                            <div className="row justify-content-end">
+                                                                <div className="col-lg-5 col-xl-4 col-xl-3 ml-sm-auto">
+                                                                    <ul className="list-unstyled mt-4">
+                                                                        <li className="mid pb-3 text-dark"> Subtotal
+                                                                             <span className="d-inline-block float-right text-default">$7.897,00</span>
+                                                                        </li>
+                                                                        <li className="mid pb-3 text-dark">Vat(10%)
+                                                                            <span className="d-inline-block float-right text-default">$789,70</span>
+                                                                        </li>
+                                                                        <li className="pb-3 text-dark"><b>Total</b>
+                                                                            <span className="d-inline-block float-right"><b>$8.686,70</b></span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                  
+
+
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <button type="button" class="btn btn-primary" onClick={this.saveCustomer}>Save customer</button>
+                                                    <button type="button" class="btn btn-danger" onClick={this.closeInvoiceModal}>Close</button>
+
+                                                </Modal.Footer>
+                                            </Modal>
+
+                                        }
+
+
+                                        <div className="row-between">
+
                                             <div>
-                                                <SizePerPageDropdownStandalone { ...paginationProps } />
+                                                <SizePerPageDropdownStandalone {...paginationProps} />
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Create new invoice</button>
-                                                </div>
+                                                <button type="button" onClick={this.openInvoiceModal} className="btn btn-success">Create new invoice</button>
+                                            </div>
 
-                                            <div>                                                
-                                                <SearchBar {...toolkitprops.searchProps} />                                                     
-                                               
+                                            <div>
+                                                <SearchBar {...toolkitprops.searchProps} />
+
                                             </div>
                                         </div>
                                         <br />
@@ -224,7 +379,6 @@ export default class InvoiceTable extends React.Component {
                                                 <BootstrapTable
                                                     bordered={false}
                                                     hover
-                                                    selectRow= {selectRow}
                                                     {...toolkitprops.baseProps}
                                                     {...paginationTableProps}
                                                 />
@@ -235,8 +389,8 @@ export default class InvoiceTable extends React.Component {
                                             </div>
                                             <div>
                                                 <div>
-                                                    <PaginationListStandalone {...paginationProps}   />
-                                                </div>                                                   
+                                                    <PaginationListStandalone {...paginationProps} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>);
@@ -244,7 +398,7 @@ export default class InvoiceTable extends React.Component {
 
                             }
                         }
-                    </ToolkitProvider>          
+                    </ToolkitProvider>
 
 
                 </div>
@@ -262,7 +416,7 @@ export default class InvoiceTable extends React.Component {
                                 <div className="card-header card-header-border-bottom d-flex justify-content-between" id="recent-orders">
                                     <h2>Invoices</h2>
                                 </div>
-                                
+
                                 <PaginationProvider pagination={paginationFactory(paginationConfig)} >
                                     {contentTable}
                                 </PaginationProvider>

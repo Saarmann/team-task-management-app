@@ -1,12 +1,16 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { time } from '../../components/data/timeData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
+import { URL_API } from '../../config.js';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+
+const axios = require("axios");
 
 const selectRow = {
     mode: 'checkbox',
     clickToSelect: true,
+    clickToEdit: true
    
   };
 
@@ -71,46 +75,46 @@ const paginationConfig = {
     }, {
         text: '100', value: 100
     }, {
-        text: 'All', value: time.length
+        text: 'All', value: 1000000
     }] // A numeric array is also available. the purpose of above example is custom the text
 };
 
 const columns = [{
-    dataField: 'job_date',
+    dataField: 'taskDate',
     text: 'Date',
     sort: true
 
 }, {
-    dataField: 'start_time',
+    dataField: 'startTime',
     text: 'Start',
 
 }, {
-    dataField: 'end_time',
+    dataField: 'endTime',
     text: 'Stop',
 
 }, {
-    dataField: 'customer_name',
+    dataField: 'customer.customerName',
     text: 'Customer',
     sort: true
 
 }, {
-    dataField: 'job_description',
+    dataField: 'taskDescription',
     text: 'Task',
 
 }, {
-    dataField: 'user',
-    text: 'User',
+    dataField: 'user.firstname',
+    text: 'Assigned by',
     sort: true
 
 }, {
-    dataField: 'time_spent',
+    dataField: 'timeSpent',
     text: 'Time spent',
 
 }, {
-    dataField: 'invoiced',
+    dataField: 'taskStatus',
     text: 'Status',
     formatter: (cell, row) => {
-        if(row.invoiced) {
+        if(row.taskStatus ===1 ) {
             return (
                 <div>
                     <span className="badge badge-success">Invoiced</span>
@@ -144,6 +148,28 @@ export default class TimeTable extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            
+            taskData: []
+        }
+
+        this.showTaskList = this.showTaskList.bind(this);
+    }
+
+    componentDidMount (){
+        this.showTaskList();
+    }
+
+    showTaskList() {
+        axios.get(URL_API + `/task/`)
+            .then((tasks) => {
+
+                this.setState({ taskData: tasks.data });
+                console.log(tasks.data);
+
+            }).catch((exception) => {
+                console.log(exception);
+            });
     }
 
     render() {
@@ -156,7 +182,7 @@ export default class TimeTable extends React.Component {
                     <ToolkitProvider
                         keyField="id"
                         columns={ columns }
-                        data={ time }
+                        data={ this.state.taskData }
                         search
                     >
                         {
@@ -186,6 +212,10 @@ export default class TimeTable extends React.Component {
                                                 <BootstrapTable
                                                     bordered={false}
                                                     hover
+                                                    cellEdit={ cellEditFactory({ 
+                                                        mode: 'dbclick',
+                                                        nonEditableRows: () => [0]
+                                                    }) }
                                                     selectRow={ selectRow } 
                                                     {...toolkitprops.baseProps}
                                                     {...paginationTableProps}

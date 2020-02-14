@@ -3,48 +3,24 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import { URL_API } from '../../config.js';
-import cellEditFactory from 'react-bootstrap-table2-editor';
 
 const axios = require("axios");
 
-const selectRow = {
-    mode: 'checkbox',
-    clickToSelect: true,
-    clickToEdit: true
-   
-  };
+const { SearchBar } = Search;
 
-// const customerDetails = (e) => {
-//     // console.log(e.target);
-//     var { id } = e.target;
-//     console.log("See Details for Id: "+id);
-//     //hashHistory.push('/contacts/details/'+id);
-// }
+const userDetails = (e) => {
 
-// const formatEditCustomerButton = (cell, row) => {
-//     let clickHandler = customerDetails;
-//     var emptyContent = React.createElement('i', { id: row.id, onClick: clickHandler });
-//     var aBtn = React.createElement('a', { id: row.id, className: "mdi mdi-lead-pencil", onClick: clickHandler }, emptyContent);
-//     return aBtn;
-
-// }
-
- 
-const createActionButtons = (cell, row) => {
-    return (
-        <div>
-            <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" >
-                {/* Edit */}
-            </button>
-            {/* ml-2 adds space between buttons */}
-            <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"> 
-                {/* Delete */}
-            </button>
-        </div>
-    );
+    var { id } = e.target;
 }
 
-const { SearchBar } = Search;
+const formatEditUserButton = (cell, row) => {
+    let clickHandler = userDetails;
+    var aBtn = React.createElement('button', { id: row.id, className: "btn btn-outline-primary mdi mdi-lead-pencil btn-sm", onClick: clickHandler });
+    var bBtn = React.createElement('button', { id: row.id, className: "btn btn-outline-success mdi mdi-check btn-sm ml-2", onClick: clickHandler });
+    var cBtn = React.createElement('button', { id: row.id, className: "btn btn-outline-info mdi mdi-email-outline btn-sm ml-2", onClick: clickHandler });
+    var userButtons = React.createElement('div', {}, aBtn, bBtn, cBtn);
+    return userButtons;
+}
 
 const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -80,96 +56,51 @@ const paginationConfig = {
 };
 
 const columns = [{
-    dataField: 'taskDate',
-    text: 'Date',
-    sort: true
+    dataField: 'firstname',
+    text: 'Firstname',
+    style: {fontWeight: "normal"}
 
 }, {
-    dataField: 'startTime',
-    text: 'Start',
+    dataField: 'lastname',
+    text: 'Lastname'
 
 }, {
-    dataField: 'endTime',
-    text: 'Stop',
+    dataField: 'email',
+    text: 'Email'
 
 }, {
-    dataField: 'customer.customerName',
-    text: 'Customer',
-    sort: true
+    dataField: 'role.role',
+    text: 'Role'
 
-}, {
-    dataField: 'taskDescription',
-    text: 'Task',
-
-}, {
-    dataField: 'user.firstname',
-    text: 'Assigned by',
-    editable: false,
-    sort: true
-
-}, {
-    dataField: 'timeSpent',
-    text: 'Time spent',
-    editable: false,
-
-}, {
-    dataField: 'taskStatus',
-    text: 'Status',
-    editable: false,
-    formatter: (cell, row) => {
-        if(row.taskStatus ===1 ) {
-            return (
-                <div>
-                    <span className="badge badge-success">Invoiced</span>
-                </div>
-            );
-        }
-            return (
-                ""
-            );
-    }
-  
-}, {
+},{
     text: 'Action',
-    editable: false,
-    formatter: (cell, row) => {
-        if (row.invoiced) {
-            return (
-                ""
-            );
-        }
-            return (
-                <div>
-                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" ></button>
-                    <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"></button>
-                </div>
-            );
-    }
-    
+    headerAlign: 'center',
+    style: {
+        textAlign: 'center'
+    },
+    formatter: formatEditUserButton
 }];
 
-export default class TimeTable extends React.Component {
+export default class UserTable extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            
-            taskData: []
+            teamMembers: []
         }
 
-        this.showTaskList = this.showTaskList.bind(this);
+        this.showUserList = this.showUserList.bind(this);
     }
 
     componentDidMount (){
-        this.showTaskList();
+        this.showUserList();
     }
 
-    showTaskList() {
-        axios.get(URL_API + `/task/`)
-            .then((tasks) => {
+    showUserList() {
+        axios.get(URL_API + `/user/team`)
+            .then((users) => {
 
-                this.setState({ taskData: tasks.data });
-                console.log(tasks.data);
+                this.setState({ teamMembers: users.data });
 
             }).catch((exception) => {
                 console.log(exception);
@@ -186,7 +117,7 @@ export default class TimeTable extends React.Component {
                     <ToolkitProvider
                         keyField="id"
                         columns={ columns }
-                        data={ this.state.taskData }
+                        data={ this.state.teamMembers }
                         search
                     >
                         {
@@ -201,7 +132,7 @@ export default class TimeTable extends React.Component {
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Send to invoice</button>
+                                                <button type="button" className="btn btn-success">Add team member</button>
                                                 </div>
 
                                             <div>                                                
@@ -216,18 +147,13 @@ export default class TimeTable extends React.Component {
                                                 <BootstrapTable
                                                     bordered={false}
                                                     hover
-                                                    cellEdit={ cellEditFactory({ 
-                                                        mode: 'dbclick',
-                                                        nonEditableRows: () => [0]
-                                                    }) }
-                                                    selectRow={ selectRow } 
                                                     {...toolkitprops.baseProps}
                                                     {...paginationTableProps}
                                                 />
                                             </div>
                                         </div>
                                         <div className="row-between">
-                                            <div className="col-sm-8">
+                                            <div className="col-sm-9">
                                             </div>
                                             <div>
                                                 <div>
@@ -242,7 +168,6 @@ export default class TimeTable extends React.Component {
                         }
                     </ToolkitProvider>          
 
-
                 </div>
             );
         }
@@ -252,11 +177,11 @@ export default class TimeTable extends React.Component {
                 <div className="content">
 
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-9">
                             <div className="card card-default">
 
                                 <div className="card-header card-header-border-bottom d-flex justify-content-between" id="recent-orders">
-                                    <h2>Timetracking</h2>
+                                    <h2>Team members</h2>
                                 </div>
                                 
                                 <PaginationProvider pagination={paginationFactory(paginationConfig)} >
@@ -267,12 +192,9 @@ export default class TimeTable extends React.Component {
                         </div>
                     </div>
 
-
                 </div>
             </div>
         );
     }
 
-
 }
-

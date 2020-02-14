@@ -1,22 +1,15 @@
 import React from 'react';
 import Header from './Header';
-import PageContent from './PageContent';
-import Footer from './Footer';
 import LeftSideBar from './LeftSideBar';
 import {Route, Switch} from 'react-router-dom';
 import TaskContainer from './TaskContainer';
-import InvoiceContainer from './InvoiceContainer';
-import TimeContainer from './TimeContainer';
 import Reports from './ReportContainer';
-import Inbox from './InboxContainer';
-import Client from './ClientContainer';
-import CustomerTable from '../tables/CustomerTable';
 import CustomerTablePag from '../tables/CustomerTablePagSearch';
 import InvoiceTable from '../tables/InvoiceTable';
 import TimeTable from '../tables/TimeTable';
-import CustomerModal from '../tables/CustomerModal';
 import Invoice from './Invoice';
 import UserInfo from './userInfo';
+import UserTable from '../tables/UserTable';
 
 
 export default class MasterContainer extends React.Component {
@@ -43,6 +36,7 @@ export default class MasterContainer extends React.Component {
                             <Header/>
 
                            <Switch>
+                                <Route path="/team" component={UserTable}/>   
                                 <Route path="/user" component={UserInfo}/>
                                 <Route path="/inbox" component={Invoice}/>
                                 <Route path="/main" component={UserInfo}/>
@@ -52,8 +46,6 @@ export default class MasterContainer extends React.Component {
                                 <Route path="/invoices" component={InvoiceTable}/>
                                 <Route path="/reports" component={Reports}/>
                            </Switch>
-
-                            <Footer/>
 
                     </div>
 

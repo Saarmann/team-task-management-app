@@ -218,10 +218,7 @@ export default class CustomerTablePag extends React.Component {
         }
 
         const columns = [{
-        //     dataField: 'id',
-        //     text: 'ID'
-        
-        // }, {
+
             dataField: 'customerName',
             text: 'Customer name',
             sort: true

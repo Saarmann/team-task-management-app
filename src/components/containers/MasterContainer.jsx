@@ -8,7 +8,7 @@ import CustomerTablePag from '../tables/CustomerTablePagSearch';
 import InvoiceTable from '../tables/InvoiceTable';
 import TimeTable from '../tables/TimeTable';
 import Invoice from './Invoice';
-import UserInfo from './userInfo';
+import UserInfo from './UserInfo';
 import UserTable from '../tables/UserTable';
 
 

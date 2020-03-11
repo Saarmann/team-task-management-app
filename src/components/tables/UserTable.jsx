@@ -10,6 +10,10 @@ const axios = require("axios");
 
 const { SearchBar } = Search;
 
+const options = {
+    headers: {"Content-Type": "application/json","Accept": "application/json" },
+  };
+
 const userDetails = (e) => {
 
     var { id } = e.target;
@@ -93,14 +97,17 @@ export default class UserTable extends React.Component {
             id: "",
             firstname: "",
             lastname: "",
+            password: "",
             email: "",
-            role: 2
+            role: []
             
         }
 
         this.showUserList = this.showUserList.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.saveTeamMember = this.saveTeamMember.bind(this);
+        this.clearModal = this.clearModal.bind(this);
     }
 
     componentDidMount (){
@@ -126,8 +133,30 @@ export default class UserTable extends React.Component {
         this.setState({openModal: false});
     }
 
-    addTeamMember() {
+    clearModal() {
+        this.setState({firstname: ""});
+        this.setState({lastname: ""});
+        this.setState({email: ""});
+    }
 
+    saveTeamMember() {
+        let userData = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            password: "",
+            email: this.state.email,
+            role: {id: 2}
+        }
+
+        axios.post(URL_API + `/user/save`, userData, options)
+        .then((response) => {
+            console.log(response)
+        }).catch((exception) => {
+            console.log(exception)});
+        
+        this.clearModal();
+        this.closeModal();
+        this.showUserList();
     }
 
     render() {
@@ -163,18 +192,18 @@ export default class UserTable extends React.Component {
                                                                         <div className="form-row">
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label for="validationServer03">Firstname</label>
-                                                                                <input type="text" value={this.registrationCode} onChange={(e) => this.setState({registrationCode: e.target.value})} className="form-control" id="validationServer03" placeholder="Firstname" required/>
+                                                                                <input type="text" value={this.firstname} onChange={(e) => this.setState({firstname: e.target.value})} className="form-control" id="validationServer03" placeholder="Firstname" required/>
                                                                             </div>
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label for="validationServer04">Lastname</label>
-                                                                                <input type="text" value={this.vatNo} onChange={(e) => this.setState({vatNo: e.target.value})} className="form-control" id="validationServer04" placeholder="Lastname"/>
+                                                                                <input type="text" value={this.lastname} onChange={(e) => this.setState({lastname: e.target.value})} className="form-control" id="validationServer04" placeholder="Lastname"/>
                                                                             </div>
                                                                         </div>
 
                                                                         <div className="form-row">
                                                                             <div className="col-md-12 mb-3">
                                                                                 <label for="validationServer02">Email address</label>
-                                                                                <input type="text" value={this.customerEmail} onChange={(e) => this.setState({customerEmail: e.target.value})} className="form-control" id="validationServer02" placeholder="Email"/>
+                                                                                <input type="text" value={this.email} onChange={(e) => this.setState({email: e.target.value})} className="form-control" id="validationServer02" placeholder="Email"/>
                                                                             </div>
                                                                         </div>                                                                                                                                            
                                                                     </form>
@@ -182,7 +211,7 @@ export default class UserTable extends React.Component {
                                                           
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={ this.saveCustomer }>Save</button>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.saveTeamMember }>Save</button>
                                                     <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
                                                    
                                                 </Modal.Footer>

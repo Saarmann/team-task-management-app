@@ -113,11 +113,8 @@ export default class CustomerTable extends React.Component {
 
     render() {
 
-
         return (
             
-
-
             <div className="content-wrapper">
                 <div className="content">
                     <div className="row">

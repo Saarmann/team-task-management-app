@@ -1,6 +1,5 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { customer } from '../../components/data/customerData.js';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import '@trendmicro/react-modal/dist/react-modal.css';
@@ -44,7 +43,7 @@ const paginationConfig = {
     }, {
         text: '100', value: 100
     }, {
-        text: 'All', value: customer.length
+        text: 'All', value: 99999999
     }] // A numeric array is also available. the purpose of above example is custom the text
 };
 

@@ -89,7 +89,12 @@ export default class UserTable extends React.Component {
         super(props);
         this.state = {
             teamMembers: [],
-            openModal: false
+            openModal: false,
+            id: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            role: 2
             
         }
 
@@ -105,7 +110,7 @@ export default class UserTable extends React.Component {
     showUserList() {
         axios.get(URL_API + `/user/team`)
             .then((users) => {
-
+                
                 this.setState({ teamMembers: users.data });
 
             }).catch((exception) => {
@@ -148,57 +153,21 @@ export default class UserTable extends React.Component {
                                             <Modal size={400} onClose={ this.closeModal}>
                                                 <Modal.Header>
                                                     <Modal.Title>
-                                                        Add new customer
+                                                        Add new team member
                                                     </Modal.Title>
                                                 </Modal.Header>
                                                 <Modal.Body padding>
                                                         
                                                                 <div className="card-body">
-                                                                    <form >
-                                                                        <div className="form-row">
-                                                                            <div className="col-md-12 mb-3">
-                                                                                <label for="validationServer01">Customer name</label>
-                                                                                <input type="text" value={this.customerName} onChange={(e) => this.setState({customerName: e.target.value})} className="form-control" id="validationServer01" placeholder="Company name" required/>
-                                                                            </div>
-                                                                        </div>
-                                                                        
+                                                                    <form >                                                                     
                                                                         <div className="form-row">
                                                                             <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer03">Registration code</label>
-                                                                                <input type="text" value={this.registrationCode} onChange={(e) => this.setState({registrationCode: e.target.value})} className="form-control" id="validationServer03" placeholder="Code" required/>
+                                                                                <label for="validationServer03">Firstname</label>
+                                                                                <input type="text" value={this.registrationCode} onChange={(e) => this.setState({registrationCode: e.target.value})} className="form-control" id="validationServer03" placeholder="Firstname" required/>
                                                                             </div>
                                                                             <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer04">VAT No.</label>
-                                                                                <input type="text" value={this.vatNo} onChange={(e) => this.setState({vatNo: e.target.value})} className="form-control" id="validationServer04" placeholder="Number"/>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div className="form-row">
-                                                                            <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer01">Address</label>
-                                                                                <input type="text" value={this.address} onChange={(e) => this.setState({address: e.target.value})} className="form-control" id="validationServer01" placeholder="Street address"/>
-                                                                            </div>
-                                                                            <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer03">City</label>
-                                                                                <input type="text" value={this.city} onChange={(e) => this.setState({city: e.target.value})} className="form-control" id="validationServer03" placeholder="City"/>
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                        <div className="form-row">
-                                                                            <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer03">Country</label>
-                                                                                <input type="text" value={this.country} onChange={(e) => this.setState({country: e.target.value})} className="form-control" id="validationServer03" placeholder="Country"/>
-                                                                            </div>
-                                                                            <div className="col-md-3 mb-3">
-                                                                                <label for="validationServer04">State</label>
-                                                                                <input type="text" value={this.state} onChange={(e) => this.setState({state: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
-
-                                                                            </div>
-                                                                            <div className="col-md-3 mb-3">
-                                                                                <label for="validationServer05">Zip</label>
-                                                                                <input type="text" value={this.zip} onChange={(e) => this.setState({zip: e.target.value})} className="form-control" id="validationServer05" placeholder="Zip"/>
-
+                                                                                <label for="validationServer04">Lastname</label>
+                                                                                <input type="text" value={this.vatNo} onChange={(e) => this.setState({vatNo: e.target.value})} className="form-control" id="validationServer04" placeholder="Lastname"/>
                                                                             </div>
                                                                         </div>
 
@@ -207,26 +176,13 @@ export default class UserTable extends React.Component {
                                                                                 <label for="validationServer02">Email address</label>
                                                                                 <input type="text" value={this.customerEmail} onChange={(e) => this.setState({customerEmail: e.target.value})} className="form-control" id="validationServer02" placeholder="Email"/>
                                                                             </div>
-                                                                        </div>
-
-                                                                        <div className="form-row">
-                                                                            <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer03">Contact</label>
-                                                                                <input type="text" value={this.contact} onChange={(e) => this.setState({contact: e.target.value})} className="form-control" id="validationServer03" placeholder="Phone number"/>
-
-                                                                            </div>
-                                                                            <div className="col-md-6 mb-3">
-                                                                                <label for="validationServer04">Payment term</label>
-                                                                                <input type="text" value={this.paymentTerm} onChange={(e) => this.setState({paymentTerm: e.target.value})} className="form-control" id="validationServer04" placeholder="Days"/>
-                                                                            </div>
-                                                                        </div>
-                                                                                                                                            
+                                                                        </div>                                                                                                                                            
                                                                     </form>
                                                                 </div>
                                                           
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={ this.saveCustomer }>Save customer</button>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.saveCustomer }>Save</button>
                                                     <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
                                                    
                                                 </Modal.Footer>
@@ -241,7 +197,7 @@ export default class UserTable extends React.Component {
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Add team member</button>
+                                                <button type="button" onClick={this.openModal} className="btn btn-success">Add team member</button>
                                                 </div>
 
                                             <div>                                                

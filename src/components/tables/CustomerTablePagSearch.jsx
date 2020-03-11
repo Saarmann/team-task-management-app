@@ -47,10 +47,6 @@ const paginationConfig = {
     }] // A numeric array is also available. the purpose of above example is custom the text
 };
 
-
-
-
-
 export default class CustomerTablePag extends React.Component {
 
     constructor(props) {

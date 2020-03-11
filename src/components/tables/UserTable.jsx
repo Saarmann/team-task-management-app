@@ -3,6 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import { URL_API } from '../../config.js';
+import '@trendmicro/react-modal/dist/react-modal.css';
+import Modal from '@trendmicro/react-modal';
 
 const axios = require("axios");
 
@@ -86,10 +88,14 @@ export default class UserTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            teamMembers: []
+            teamMembers: [],
+            openModal: false
+            
         }
 
         this.showUserList = this.showUserList.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount (){
@@ -105,6 +111,18 @@ export default class UserTable extends React.Component {
             }).catch((exception) => {
                 console.log(exception);
             });
+    }
+
+    openModal () {
+        this.setState({openModal: true});
+    }
+
+    closeModal() {
+        this.setState({openModal: false});
+    }
+
+    addTeamMember() {
+
     }
 
     render() {
@@ -125,6 +143,97 @@ export default class UserTable extends React.Component {
 
                                 return (
                                     <div>
+                                         {   
+                                            this.state.openModal &&
+                                            <Modal size={400} onClose={ this.closeModal}>
+                                                <Modal.Header>
+                                                    <Modal.Title>
+                                                        Add new customer
+                                                    </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body padding>
+                                                        
+                                                                <div className="card-body">
+                                                                    <form >
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-12 mb-3">
+                                                                                <label for="validationServer01">Customer name</label>
+                                                                                <input type="text" value={this.customerName} onChange={(e) => this.setState({customerName: e.target.value})} className="form-control" id="validationServer01" placeholder="Company name" required/>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Registration code</label>
+                                                                                <input type="text" value={this.registrationCode} onChange={(e) => this.setState({registrationCode: e.target.value})} className="form-control" id="validationServer03" placeholder="Code" required/>
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer04">VAT No.</label>
+                                                                                <input type="text" value={this.vatNo} onChange={(e) => this.setState({vatNo: e.target.value})} className="form-control" id="validationServer04" placeholder="Number"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer01">Address</label>
+                                                                                <input type="text" value={this.address} onChange={(e) => this.setState({address: e.target.value})} className="form-control" id="validationServer01" placeholder="Street address"/>
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">City</label>
+                                                                                <input type="text" value={this.city} onChange={(e) => this.setState({city: e.target.value})} className="form-control" id="validationServer03" placeholder="City"/>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Country</label>
+                                                                                <input type="text" value={this.country} onChange={(e) => this.setState({country: e.target.value})} className="form-control" id="validationServer03" placeholder="Country"/>
+                                                                            </div>
+                                                                            <div className="col-md-3 mb-3">
+                                                                                <label for="validationServer04">State</label>
+                                                                                <input type="text" value={this.state} onChange={(e) => this.setState({state: e.target.value})} className="form-control" id="validationServer04" placeholder="State"/>
+
+                                                                            </div>
+                                                                            <div className="col-md-3 mb-3">
+                                                                                <label for="validationServer05">Zip</label>
+                                                                                <input type="text" value={this.zip} onChange={(e) => this.setState({zip: e.target.value})} className="form-control" id="validationServer05" placeholder="Zip"/>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-12 mb-3">
+                                                                                <label for="validationServer02">Email address</label>
+                                                                                <input type="text" value={this.customerEmail} onChange={(e) => this.setState({customerEmail: e.target.value})} className="form-control" id="validationServer02" placeholder="Email"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Contact</label>
+                                                                                <input type="text" value={this.contact} onChange={(e) => this.setState({contact: e.target.value})} className="form-control" id="validationServer03" placeholder="Phone number"/>
+
+                                                                            </div>
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer04">Payment term</label>
+                                                                                <input type="text" value={this.paymentTerm} onChange={(e) => this.setState({paymentTerm: e.target.value})} className="form-control" id="validationServer04" placeholder="Days"/>
+                                                                            </div>
+                                                                        </div>
+                                                                                                                                            
+                                                                    </form>
+                                                                </div>
+                                                          
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.saveCustomer }>Save customer</button>
+                                                    <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
+                                                   
+                                                </Modal.Footer>
+                                            </Modal>
+
+                                        }
+
                                         <div className="row-between">
                                             
                                             <div>

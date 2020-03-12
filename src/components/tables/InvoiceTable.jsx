@@ -198,7 +198,9 @@ export default class InvoiceTable extends React.Component {
             
             invoicesData: [],
             customerList: [],
-            openInvoiceModal: false
+            openInvoiceModal: true,
+            rows: [{}]            
+
         }
 
         this.openInvoiceModal = this.openInvoiceModal.bind(this);
@@ -239,8 +241,36 @@ export default class InvoiceTable extends React.Component {
         console.log(this.customerList);
         return this.customerList;
         
-        
     }
+
+    handleChange = idx => e => {
+        const { name, value } = e.target;
+        const rows = [...this.state.rows];
+        rows[idx] = {
+          [name]: value
+        };
+        this.setState({
+          rows
+        });
+      }
+
+      handleAddRow = () => {
+        const item = {
+          description: "",
+          quantity: "",
+          price: "",
+          total: ""
+        };
+        this.setState({
+          rows: [...this.state.rows, item]
+        });
+      }
+
+      handleRemoveSpecificRow = (idx) => () => {
+        const rows = [...this.state.rows]
+        rows.splice(idx, 1)
+        this.setState({ rows })
+      }
 
     render() {
 
@@ -308,24 +338,36 @@ export default class InvoiceTable extends React.Component {
                                                                     <tr>
                                                                         <th>#</th>
                                                                         <th>Description</th>
-                                                                        <th>Quantity</th>
-                                                                        <th>Unit Cost</th>
+                                                                        <th>Qty</th>
+                                                                        <th>Price</th>
                                                                         <th>Total</th>
+                                                                        <th></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>1 year subcription 24/7 asdasdasdasdsadsad sadsadsadsadsasad sada slkjfsljfdslkjfdslkjfdslkjfdskjfdskjfdslkjdslkj</td>
-                                                                        <td>1</td>
-                                                                        <td>$3.999,00</td>
-                                                                        <td>$3.999,00</td>
-                                                                        
+                                                                {this.state.rows.map((item, idx) => (
+                                                                    <tr id="addr0" key={idx}>
+                                                                    <td>{idx}</td>
+                                                                    <td>
+                                                                        <input type="text" value={this.state.rows[idx].description} onChange={this.handleChange(idx)} className="form-control" placeholder="Description"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" value={this.state.rows[idx].quantity} onChange={this.handleChange(idx)} className="form-control" placeholder="Enter quantity"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" value={this.state.rows[idx].price} onChange={this.handleChange(idx)} className="form-control" placeholder="Unit price"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" value={this.state.rows[idx].total} onChange={this.handleChange(idx)} className="form-control"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button className="btn btn-outline-danger mdi mdi-close btn-sm" onClick={this.handleRemoveSpecificRow(idx)}></button>
+                                                                    </td>
                                                                     </tr>
-
+                                                                ))}
                                                                 </tbody>
                                                             </table>
-
+                                                                <button onClick={this.handleAddRow} className="btn-sm btn-secondary">Add Row</button>
                                                             <div className="row justify-content-end">
                                                                 <div className="col-lg-5 col-xl-4 col-xl-3 ml-sm-auto">
                                                                     <ul className="list-unstyled mt-4">
@@ -341,21 +383,15 @@ export default class InvoiceTable extends React.Component {
                                                                     </ul>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                   
-
-
                                                 </Modal.Body>
                                                 <Modal.Footer>
                                                     <button type="button" class="btn btn-primary" onClick={this.saveCustomer}>Save customer</button>
                                                     <button type="button" class="btn btn-danger" onClick={this.closeInvoiceModal}>Close</button>
-
                                                 </Modal.Footer>
                                             </Modal>
-
                                         }
-
 
                                         <div className="row-between">
 
@@ -394,13 +430,9 @@ export default class InvoiceTable extends React.Component {
                                             </div>
                                         </div>
                                     </div>);
-
-
                             }
                         }
                     </ToolkitProvider>
-
-
                 </div>
             );
         }

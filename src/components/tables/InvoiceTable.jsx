@@ -199,7 +199,8 @@ export default class InvoiceTable extends React.Component {
             invoicesData: [],
             customerList: [],
             openInvoiceModal: true,
-            rows: [{}]            
+            rows: [{}],
+            rowTotal: 0
 
         }
 
@@ -346,7 +347,7 @@ export default class InvoiceTable extends React.Component {
                                                                 </thead>
                                                                 <tbody>
                                                                 {this.state.rows.map((item, idx) => (
-                                                                    <tr id="addr0" key={idx}>
+                                                                    <tr key={idx}>
                                                                     <td>{idx}</td>
                                                                     <td>
                                                                         <input type="text" value={this.state.rows[idx].description} onChange={this.handleChange(idx)} className="form-control" placeholder="Description"/>
@@ -358,7 +359,7 @@ export default class InvoiceTable extends React.Component {
                                                                         <input type="number" value={this.state.rows[idx].price} onChange={this.handleChange(idx)} className="form-control" placeholder="Unit price"/>
                                                                     </td>
                                                                     <td>
-                                                                        <input type="text" value={this.state.rows[idx].total} onChange={this.handleChange(idx)} className="form-control"/>
+                                                                        value={this.state.rows[idx].quantity * this.state.rows[idx].price} 
                                                                     </td>
                                                                     <td>
                                                                         <button className="btn btn-outline-danger mdi mdi-close btn-sm" onClick={this.handleRemoveSpecificRow(idx)}></button>
@@ -387,7 +388,7 @@ export default class InvoiceTable extends React.Component {
                                                   
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={this.saveCustomer}>Save customer</button>
+                                                    <button type="button" class="btn btn-primary" onClick={this.saveCustomer}>Save invoice</button>
                                                     <button type="button" class="btn btn-danger" onClick={this.closeInvoiceModal}>Close</button>
                                                 </Modal.Footer>
                                             </Modal>

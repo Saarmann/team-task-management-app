@@ -10,6 +10,8 @@ import TimeTable from '../tables/TimeTable';
 import Invoice from './Invoice';
 import UserInfo from './UserInfo';
 import UserTable from '../tables/UserTable';
+import Inbox from './InboxContainer';
+import TaskTable from '../tables/TaskTable';
 
 
 export default class MasterContainer extends React.Component {
@@ -38,9 +40,9 @@ export default class MasterContainer extends React.Component {
                            <Switch>
                                 <Route path="/team" component={UserTable}/>   
                                 <Route path="/user" component={UserInfo}/>
-                                <Route path="/inbox" component={Invoice}/>
+                                <Route path="/inbox" component={Inbox}/>
                                 <Route path="/main" component={UserInfo}/>
-                                <Route path="/mytasks" component={TaskContainer}/>
+                                <Route path="/mytasks" component={TaskTable}/>
                                 <Route path="/time" component={TimeTable}/>
                                 <Route path="/customers" component={CustomerTablePag}/>
                                 <Route path="/invoices" component={InvoiceTable}/>

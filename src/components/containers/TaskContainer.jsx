@@ -93,23 +93,6 @@ export default class TaskContainer extends React.Component {
              </div>
             </div>
 
-                // <div classNameName="content-wrapper">
-                //     <div classNameName="content">
-
-                //         <div classNameName="row">
-                //             <div classNameName="col-12">
-                //                 <div classNameName="card card-default">
-                //                     {tasks.map((e) => (
-                //                          <div classNameName="card-header card-header-border-bottom d-flex justify-content-between">
-                //                              <h5>{e.taskDescription}</h5>
-                //                         </div>
-                //                     ))}
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
-                // </div>
-           
         );
     }
 }

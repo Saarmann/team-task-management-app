@@ -37,13 +37,13 @@ export default class LeftSideBar extends React.Component {
                 {/* <!-- Aplication Brand --> */}
                 <div className="app-brand">
                     <a href="/index.html" title="Super Dashboard">
-                        <svg className="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30" height="33" viewBox="0 0 30 33">
+                        <svg className="brand-icon" preserveAspectRatio="xMidYMid" width="30" height="33" viewBox="0 0 30 33">
                             <g fill="none" fill-rule="evenodd">
                                 <path className="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z"/>
                                 <path className="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z" />
                             </g>
                         </svg>
-                        <span className="brand-name text-truncate">Super Dashboard</span>
+                        <span className="brand-name text-truncate">Tasker App</span>
                     </a>
                 </div>
                 {/* <!-- begin sidebar scrollbar --> */}

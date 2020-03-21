@@ -141,7 +141,8 @@ export default class TaskTable extends React.Component {
             user: "",
             taskDeadline: "",
             priority: "",
-            checkBox: false
+            checkBox: false,
+            customerId: ""
 
         }
 
@@ -149,6 +150,7 @@ export default class TaskTable extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.saveTask = this.saveTask.bind(this);
+        
     }
 
     componentDidMount (){
@@ -170,7 +172,7 @@ export default class TaskTable extends React.Component {
         axios.get(URL_API+`/customer/`)
         .then((customerData) => {
     
-        this.setState({myCustomerName: customerData.data});    
+        this.setState({myCustomerName: customerData.data});  
      
         }).catch((exception)=>{
           console.log(exception);
@@ -193,7 +195,8 @@ export default class TaskTable extends React.Component {
             taskDate: this.state.taskDate,
             taskDescription: this.state.taskDescription,
             customer: this.state.customer,
-            user: this.state.user,
+            customerId: id,
+            user: {id: 2},
             taskDeadline: this.state.taskDeadline,
             priority: checkBoxValue
         }    
@@ -210,6 +213,10 @@ export default class TaskTable extends React.Component {
 
     handleCheck = event => {
         this.setState({checkBox: event.target.checked});
+    }
+
+    handleSelect = event => {
+        this.setState({customer: event.target.value});
     }
 
     render() {
@@ -253,10 +260,10 @@ export default class TaskTable extends React.Component {
                                                                             
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label>Client</label>
-                                                                                    <select className="form-control">
+                                                                                    <select value={this.state.customer} onChange={this.handleSelect} className="form-control">
                                                                                     <option></option>
                                                                                     {myCustomerName.map((e) => (                                                                                  
-                                                                                    <option onChange={(e) => this.setState({customer: e.target.value})}>{e.customerName}</option>
+                                                                                    <option id={e.id}>{e.customerName}</option>
                                                                                     ))}        
                                                                                     </select>
                                                                                 </div>   

@@ -3,7 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import { URL_API } from '../../config.js';
-import cellEditFactory from 'react-bootstrap-table2-editor';
+import '@trendmicro/react-modal/dist/react-modal.css';
+import Modal from '@trendmicro/react-modal';
 
 const axios = require("axios");
 
@@ -73,7 +74,19 @@ const columns = [{
 }, {
     dataField: 'priority',
     text: 'Priority',
-    sort: true
+    sort: true,
+    formatter: (cell, row) => {
+        if(row.taskStatus ===1 ) {
+            return (
+                <div>
+                    <span className="badge badge-warning">High</span>
+                </div>
+            );
+        }
+            return (
+                <div></div>
+            );
+    }
 
 }, {
     dataField: 'taskDate',
@@ -118,15 +131,19 @@ export default class TaskTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
-            taskData: []
+            taskData: [],
+            openModal: true,
+            myCustomerName: []
         }
 
         this.showTaskList = this.showTaskList.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount (){
         this.showTaskList();
+        this.showCustomerList();
     }
 
     showTaskList() {
@@ -141,10 +158,29 @@ export default class TaskTable extends React.Component {
             });
     }
 
+    showCustomerList () {
+        axios.get(URL_API+`/customer/`)
+        .then((customerData) => {
+    
+        this.setState({myCustomerName: customerData.data});    
+     
+        }).catch((exception)=>{
+          console.log(exception);
+        });
+    }
+
+    openModal (){
+        this.setState({openModal: true})
+    }
+
+    closeModal (){
+        this.setState({openModal: false})
+    }
+
     render() {
-
+        const { myCustomerName } = this.state
         const contentTable = ({ paginationProps, paginationTableProps }) => {
-
+  
             return (
                 <div className="card-body">
 
@@ -159,6 +195,71 @@ export default class TaskTable extends React.Component {
 
                                 return (
                                     <div>
+
+                                    {
+                                            this.state.openModal &&
+                                            <Modal size={400} onClose={ this.closeModal}>
+                                                <Modal.Header>
+                                                    <Modal.Title>
+                                                        Add new task
+                                                    </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body padding>
+                                                        
+                                                                <div className="card-body">
+                                                                    
+                                                                    <form >
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label for="validationServer03">Date</label>
+                                                                                <input type="date" value={this.state.country} onChange={(e) => this.setState({country: e.target.value})} className="form-control"/>
+                                                                            </div>
+                                                                            
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label>Client</label>
+                                                                                    <select className="form-control">
+                                                                                    <option></option>
+                                                                                    {myCustomerName.map((e) => (                                                                                  
+                                                                                    <option>{e.customerName}</option>
+                                                                                    ))}        
+                                                                                    </select>
+                                                                                </div>   
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-12 mb-3">
+                                                                                <label for="validationServer02">Subject</label>
+                                                                                <input type="text" value={this.state.customerEmail} onChange={(e) => this.setState({customerEmail: e.target.value})} className="form-control" placeholder="Text"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="col-md-6 mb-3">
+                                                                                <label>Deadline</label>
+                                                                                <input type="date" value={this.state.contact} onChange={(e) => this.setState({contact: e.target.value})} className="form-control" id="validationServer03" placeholder="Phone number"/>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="form-row">
+                                                                            <div className="ml-4">
+                                                                                <input type="checkbox" className="form-check-input"/>
+                                                                                <label >Priority "High"</label>
+                                                                            </div>
+                                                                        </div>                                                                    
+                                                                    </form>
+                                                                   
+                                                                </div>
+                                                          
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <button type="button" class="btn btn-primary" onClick={ () => this.editCustomer(this.state.id) }>Add task</button>
+                                                    <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
+                                                   
+                                                </Modal.Footer>
+                                            </Modal>
+
+                                        }
+
                                         <div className="row-between">
                                             
                                             <div>
@@ -166,7 +267,7 @@ export default class TaskTable extends React.Component {
                                             </div>
 
                                             <div>
-                                                <button type="button" className="btn btn-success">Create new task</button>
+                                                <button type="button" onClick={ this.openModal}  className="btn btn-success">Create new task</button>
                                                 </div>
 
                                             <div>                                                
@@ -181,10 +282,6 @@ export default class TaskTable extends React.Component {
                                                 <BootstrapTable
                                                     bordered={false}
                                                     hover
-                                                    cellEdit={ cellEditFactory({ 
-                                                        mode: 'dbclick',
-                                                        nonEditableRows: () => [0]
-                                                    }) }
                                                     selectRow={ selectRow } 
                                                     {...toolkitprops.baseProps}
                                                     {...paginationTableProps}

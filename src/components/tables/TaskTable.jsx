@@ -7,6 +7,7 @@ import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
 
 const axios = require("axios");
+const options = {headers: {"Content-Type": "application/json","Accept": "application/json" },};
 
 const selectRow = {
     mode: 'checkbox',
@@ -132,27 +133,34 @@ export default class TaskTable extends React.Component {
         super(props);
         this.state = {
             taskData: [],
-            openModal: true,
-            myCustomerName: []
+            openModal: false,
+            myCustomerName: [],
+            taskDate: "",
+            taskDescription: "",
+            customer: "",
+            user: "",
+            taskDeadline: "",
+            priority: "",
+            checkBox: false
+
         }
 
         this.showTaskList = this.showTaskList.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.saveTask = this.saveTask.bind(this);
     }
 
     componentDidMount (){
         this.showTaskList();
         this.showCustomerList();
+
     }
 
     showTaskList() {
         axios.get(URL_API + `/task/`)
             .then((tasks) => {
-
                 this.setState({ taskData: tasks.data });
-                console.log(tasks.data);
-
             }).catch((exception) => {
                 console.log(exception);
             });
@@ -169,6 +177,7 @@ export default class TaskTable extends React.Component {
         });
     }
 
+
     openModal (){
         this.setState({openModal: true})
     }
@@ -177,8 +186,35 @@ export default class TaskTable extends React.Component {
         this.setState({openModal: false})
     }
 
+    saveTask () {
+        let checkBoxValue = this.state.checkBox ? 1 : 0;
+    
+        let taskData = {
+            taskDate: this.state.taskDate,
+            taskDescription: this.state.taskDescription,
+            customer: this.state.customer,
+            user: this.state.user,
+            taskDeadline: this.state.taskDeadline,
+            priority: checkBoxValue
+        }    
+
+        console.log(taskData);
+        // axios.post(URL_API+`/task/save`, taskData, options)
+        // .then((response) => {
+        //     console.log(response)
+        // }).catch((exception)=>{
+        //     console.log(exception)});
+        
+        // this.setState({openModal: false});
+    }
+
+    handleCheck = event => {
+        this.setState({checkBox: event.target.checked});
+    }
+
     render() {
-        const { myCustomerName } = this.state
+        const { myCustomerName } = this.state;
+
         const contentTable = ({ paginationProps, paginationTableProps }) => {
   
             return (
@@ -212,7 +248,7 @@ export default class TaskTable extends React.Component {
                                                                         <div className="form-row">
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label for="validationServer03">Date</label>
-                                                                                <input type="date" value={this.state.country} onChange={(e) => this.setState({country: e.target.value})} className="form-control"/>
+                                                                                <input type="date" value={this.taskDate} onChange={(e) => this.setState({taskDate: e.target.value})} className="form-control"/>
                                                                             </div>
                                                                             
                                                                             <div className="col-md-6 mb-3">
@@ -220,7 +256,7 @@ export default class TaskTable extends React.Component {
                                                                                     <select className="form-control">
                                                                                     <option></option>
                                                                                     {myCustomerName.map((e) => (                                                                                  
-                                                                                    <option>{e.customerName}</option>
+                                                                                    <option onChange={(e) => this.setState({customer: e.target.value})}>{e.customerName}</option>
                                                                                     ))}        
                                                                                     </select>
                                                                                 </div>   
@@ -229,20 +265,21 @@ export default class TaskTable extends React.Component {
                                                                         <div className="form-row">
                                                                             <div className="col-md-12 mb-3">
                                                                                 <label for="validationServer02">Subject</label>
-                                                                                <input type="text" value={this.state.customerEmail} onChange={(e) => this.setState({customerEmail: e.target.value})} className="form-control" placeholder="Text"/>
+                                                                                <input type="text" value={this.taskDescription} onChange={(e) => this.setState({taskDescription: e.target.value})} className="form-control" placeholder="Text"/>
                                                                             </div>
                                                                         </div>
 
                                                                         <div className="form-row">
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label>Deadline</label>
-                                                                                <input type="date" value={this.state.contact} onChange={(e) => this.setState({contact: e.target.value})} className="form-control" id="validationServer03" placeholder="Phone number"/>
+                                                                                <input type="date" value={this.taskDeadline} onChange={(e) => this.setState({taskDeadline: e.target.value})} className="form-control"/>
                                                                             </div>
+
                                                                         </div>
 
                                                                         <div className="form-row">
                                                                             <div className="ml-4">
-                                                                                <input type="checkbox" className="form-check-input"/>
+                                                                                <input type="checkbox" checked={this.state.checkBox} onChange={this.handleCheck} className="form-check-input"/>
                                                                                 <label >Priority "High"</label>
                                                                             </div>
                                                                         </div>                                                                    
@@ -252,7 +289,7 @@ export default class TaskTable extends React.Component {
                                                           
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={ () => this.editCustomer(this.state.id) }>Add task</button>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.saveTask() }>Add task</button>
                                                     <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
                                                    
                                                 </Modal.Footer>

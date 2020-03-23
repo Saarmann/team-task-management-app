@@ -69,7 +69,6 @@ const columns = [{
 }, {
     dataField: 'user.firstname',
     text: 'Assigned by',
-    editable: false,
     sort: true
 
 }, {
@@ -97,7 +96,6 @@ const columns = [{
     dataField: 'taskStatus',
     text: 'Status',
     sort: true,
-    editable: false,
     formatter: (cell, row) => {
         if(row.taskStatus ===1 ) {
             return (
@@ -119,13 +117,18 @@ const columns = [{
     formatter: (cell, row) => {
             return (
                 <div>
-                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" ></button>
+                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm ml-2" ></button>
                     <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
                     <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"></button>
                 </div>
             );
     }
 }];
+
+const defaultSorted = [{
+    dataField: 'taskStatus',
+    order: 'desc'
+  }];
 
 export default class TaskTable extends React.Component {
 
@@ -195,7 +198,7 @@ export default class TaskTable extends React.Component {
             taskDate: this.state.taskDate,
             taskDescription: this.state.taskDescription,
             customer: this.state.customer,
-            customerId: id,
+            customerId: this.state.customerId,
             user: {id: 2},
             taskDeadline: this.state.taskDeadline,
             priority: checkBoxValue
@@ -327,6 +330,7 @@ export default class TaskTable extends React.Component {
                                                     bordered={false}
                                                     hover
                                                     selectRow={ selectRow } 
+                                                    defaultSorted={ defaultSorted } 
                                                     {...toolkitprops.baseProps}
                                                     {...paginationTableProps}
                                                   

@@ -163,14 +163,14 @@ const columns = [{
             if (row.invoiceStatus === 1 && row.invoiceSent === 1) {
                 return (
                     <div>
-                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm ml-2" ></button>
                         <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
                     </div>
                 )
             } else if (row.invoiceStatus === 1 && row.invoiceSent === 0) {
                 return (
                     <div>
-                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm ml-2" ></button>
                         <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
                         <button type="button" className=" btn btn-outline-info mdi mdi-email-outline btn-sm ml-2"></button>
                     </div>
@@ -178,7 +178,7 @@ const columns = [{
             } else {
                 return (
                     <div>
-                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm" ></button>
+                        <button type="button" className="btn btn-outline-info mdi mdi-eye-outline btn-sm ml-2" ></button>
                         <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm ml-2" ></button>
                         <button type="button" className="btn btn-outline-success mdi mdi-check btn-sm ml-2"></button>
                         <button type="button" className=" btn btn-outline-info mdi mdi-email-outline btn-sm ml-2"></button>
@@ -207,7 +207,6 @@ export default class InvoiceTable extends React.Component {
         this.openInvoiceModal = this.openInvoiceModal.bind(this);
         this.closeInvoiceModal = this.closeInvoiceModal.bind(this);
         this.showInvoiceList = this.showInvoiceList.bind(this);
-        this.showCustomerList = this.showCustomerList.bind(this);
     }
 
     componentWillMount() {
@@ -233,15 +232,6 @@ export default class InvoiceTable extends React.Component {
             }).catch((exception) => {
                 console.log(exception);
             });
-    }
-
-    showCustomerList() {
-        for(let i = 0; i < this.invoicesData.length; i++) {
-            this.statecustomerList.add(this.invoicesData[i].customer.customerName);
-        }
-        console.log(this.customerList);
-        return this.customerList;
-        
     }
 
     handleChange = idx => e => {
@@ -275,7 +265,7 @@ export default class InvoiceTable extends React.Component {
 
     render() {
 
-        const contentTable = ({ paginationProps, paginationTableProps }) => {
+    const contentTable = ({ paginationProps, paginationTableProps }) => {
 
             return (
                 <div className="card-body">
@@ -359,7 +349,7 @@ export default class InvoiceTable extends React.Component {
                                                                         <input type="number" value={this.state.rows[idx].price} onChange={this.handleChange(idx)} className="form-control" placeholder="Unit price"/>
                                                                     </td>
                                                                     <td>
-                                                                        value={this.state.rows[idx].quantity * this.state.rows[idx].price} 
+                                                                        {this.state.rows[idx].quantity * this.state.rows[idx].price}
                                                                     </td>
                                                                     <td>
                                                                         <button className="btn btn-outline-danger mdi mdi-close btn-sm" onClick={this.handleRemoveSpecificRow(idx)}></button>

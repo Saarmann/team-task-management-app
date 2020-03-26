@@ -1,7 +1,7 @@
 
 export const URL_API = "http://localhost:8080";
 
-const Token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTg1MjAwODI1LCJpYXQiOjE1ODUxNjQ4MjV9.4alZ4aUvq3Ql-ygIqxOfswWgx1hgC1DQ3oroiTD8UCA";
+const Token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTg1MjU4NTA0LCJpYXQiOjE1ODUyMjI1MDR9.iSXgBmTu6jSFnO2J6_AyR1up8qJpSlVG-62E3JKIweA";
 
 export const OPTIONS = {headers: {
         "Authorization": `Bearer ${Token}`, 

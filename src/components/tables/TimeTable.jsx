@@ -4,6 +4,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import { URL_API } from '../../config.js';
 import cellEditFactory from 'react-bootstrap-table2-editor';
+import { OPTIONS } from '../../config.js';
 
 const axios = require("axios");
 
@@ -140,7 +141,7 @@ const columns = [{
         }
             return (
                 <div>
-                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm" ></button>
+                    <button type="button" className="btn btn-outline-primary mdi mdi-lead-pencil btn-sm ml-2" ></button>
                     <button type="button" className="btn btn-outline-danger mdi mdi-delete btn-sm ml-2"></button>
                 </div>
             );
@@ -165,11 +166,10 @@ export default class TimeTable extends React.Component {
     }
 
     showTaskList() {
-        axios.get(URL_API + `/task/`)
+        axios.get(URL_API + `/rest/task/`, OPTIONS)
             .then((tasks) => {
 
                 this.setState({ taskData: tasks.data });
-                console.log(tasks.data);
 
             }).catch((exception) => {
                 console.log(exception);

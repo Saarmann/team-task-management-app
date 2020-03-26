@@ -1,13 +1,50 @@
-
 import React from 'react';
+import { URL_API } from '../../config';
+import MasterContainer from '../containers/MasterContainer';
+const axios = require("axios");
+
+const options = {headers: {"Content-Type": "application/json"}};
 
 export default class SignIn extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+          username: "",
+          password: "",
+          token: "",
+          isAuthenticated: false,
+          open: false
+
+        }
+    }
+
+    handleChange = (event) => {
+      this.setState({[event.target.name]: event.target.value});
+    }
+
+    logIn = () => {
+      
+      const user = {username: this.state.username, password: this.state.password};    
+      console.log(user);
+
+      axios.post(URL_API + '/authenticate', 
+        JSON.stringify(user), options)
+        
+        .then((response) => {
+          if(response.status === 200) {
+            this.setState({isAuthenticated: true})
+          }
+        }).catch(err => console.error(err))
     }
 
     render() {
+
+        if (this.state.isAuthenticated === true) {
+          return (<MasterContainer/>)
+        }
+        else {
+
         return(
 
               <div className="container d-flex flex-column justify-content-between vh-100">
@@ -35,13 +72,13 @@ export default class SignIn extends React.Component {
                       <form action="/index.html">
                         <div className="row">
                           <div className="form-group col-md-12 mb-4">
-                            <input type="text" className="form-control input-lg" id="username" placeholder="Username"/>
+                            <input type="text" className="form-control input-lg" name="username" onChange={this.handleChange} placeholder="Username"/>
                           </div>
                           <div className="form-group col-md-12 ">
-                            <input type="text" className="form-control input-lg" id="password" placeholder="Password"/>
+                            <input type="password" className="form-control input-lg" name="password" onChange={this.handleChange} placeholder="Password"/>
                           </div>
                           <div className="col-md-12">
-                            <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
+                            <button type="submit" onClick={this.logIn} className="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
                           </div>
                         </div>
                       </form>
@@ -54,4 +91,4 @@ export default class SignIn extends React.Component {
 
         );
     }
-}
+}}

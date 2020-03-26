@@ -76,7 +76,7 @@ const columns = [{
     text: 'Priority',
     sort: true,
     formatter: (cell, row) => {
-        if(row.taskStatus ===1 ) {
+        if(row.priority === 1 ) {
             return (
                 <div>
                     <span className="badge badge-warning">High</span>
@@ -97,7 +97,7 @@ const columns = [{
     text: 'Status',
     sort: true,
     formatter: (cell, row) => {
-        if(row.taskStatus ===1 ) {
+        if(row.taskStatus === 0 ) {
             return (
                 <div>
                     <span className="badge badge-success">Open</span>
@@ -127,7 +127,7 @@ const columns = [{
 
 const defaultSorted = [{
     dataField: 'taskStatus',
-    order: 'desc'
+    order: 'asc'
   }];
 
 export default class TaskTable extends React.Component {
@@ -140,7 +140,6 @@ export default class TaskTable extends React.Component {
             myCustomerName: [],
             taskDate: "",
             taskDescription: "",
-            customer: "",
             user: "",
             taskDeadline: "",
             priority: "",
@@ -183,11 +182,11 @@ export default class TaskTable extends React.Component {
     }
 
 
-    openModal (){
+    openModal () {
         this.setState({openModal: true})
     }
 
-    closeModal (){
+    closeModal () {
         this.setState({openModal: false})
     }
 
@@ -197,21 +196,20 @@ export default class TaskTable extends React.Component {
         let taskData = {
             taskDate: this.state.taskDate,
             taskDescription: this.state.taskDescription,
-            customer: this.state.customer,
-            customerId: this.state.customerId,
+            customer: {id: parseInt(this.state.customerId)},
             user: {id: 2},
             taskDeadline: this.state.taskDeadline,
             priority: checkBoxValue
         }    
 
         console.log(taskData);
-        // axios.post(URL_API+`/task/save`, taskData, options)
-        // .then((response) => {
-        //     console.log(response)
-        // }).catch((exception)=>{
-        //     console.log(exception)});
+        axios.post(URL_API+`/rest/task/save`, taskData, OPTIONS)
+        .then((response) => {
+            console.log(response)
+        }).catch((exception)=>{
+            console.log(exception)});
         
-        // this.setState({openModal: false});
+        this.setState({openModal: false});
     }
 
     handleCheck = event => {
@@ -299,7 +297,7 @@ export default class TaskTable extends React.Component {
                                                           
                                                 </Modal.Body>
                                                 <Modal.Footer>
-                                                    <button type="button" class="btn btn-primary" onClick={ this.saveTask() }>Add task</button>
+                                                    <button type="button" class="btn btn-primary" onClick={ this.saveTask }>Add task</button>
                                                     <button type="button" class="btn btn-danger" onClick={ this.closeModal }>Close</button>
                                                    
                                                 </Modal.Footer>

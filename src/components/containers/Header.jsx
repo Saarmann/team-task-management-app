@@ -16,7 +16,7 @@ export default class Header extends React.Component {
     }
 
     openUserMenu = () => {
-        if(this.state.class == "dropdown-menu dropdown-menu-right") {
+        if(this.state.class === "dropdown-menu dropdown-menu-right") {
 
         this.setState({class: "dropdown-menu dropdown-menu-right show"})
     }   else {

@@ -5,14 +5,11 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
 import {URL_API} from '../../config.js';
+import { OPTIONS } from '../../config.js';
 
 const axios = require("axios");
 
 const { SearchBar } = Search;
-
-const options = {
-    headers: {"Content-Type": "application/json","Accept": "application/json" },
-  };
 
 const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
@@ -83,7 +80,7 @@ export default class CustomerTablePag extends React.Component {
     }
 
     showCustomerList () {
-        axios.get(URL_API+`/customer/`)
+        axios.get(URL_API+`/rest/customer/`, OPTIONS)
         .then((customerData) => {
     
         this.setState({myTestData: customerData.data});    
@@ -139,7 +136,7 @@ export default class CustomerTablePag extends React.Component {
             paymentTerm: this.state.paymentTerm
         }
 
-        axios.post(URL_API+`/customer/save`, customerData, options)
+        axios.post(URL_API+`/rest/customer/save`, customerData, OPTIONS)
         .then((response) => {
             console.log(response)
         }).catch((exception)=>{
@@ -167,7 +164,7 @@ export default class CustomerTablePag extends React.Component {
             paymentTerm: this.state.paymentTerm
         }
 
-        axios.post(URL_API+`/customer/edit`, customerData, options)
+        axios.post(URL_API+`/rest/customer/edit`, customerData, OPTIONS)
         .then((response) => {
             console.log(response)
         }).catch((exception)=>{
@@ -185,7 +182,7 @@ export default class CustomerTablePag extends React.Component {
             var { id } = e.target;
             this.setState({openEditModal: true});
                         
-            axios.get(URL_API+`/customer/`+id)
+            axios.get(URL_API+`/rest/customer/`+id, OPTIONS)
             .then((response) => {
                 
               this.setState({address: response.data.address}); 

@@ -5,9 +5,9 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 import { URL_API } from '../../config.js';
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
+import { OPTIONS } from '../../config.js';
 
 const axios = require("axios");
-const options = {headers: {"Content-Type": "application/json","Accept": "application/json" },};
 
 const selectRow = {
     mode: 'checkbox',
@@ -163,7 +163,7 @@ export default class TaskTable extends React.Component {
     }
 
     showTaskList() {
-        axios.get(URL_API + `/task/`)
+        axios.get(URL_API + `/rest/task/`, OPTIONS)
             .then((tasks) => {
                 this.setState({ taskData: tasks.data });
             }).catch((exception) => {
@@ -172,7 +172,7 @@ export default class TaskTable extends React.Component {
     }
 
     showCustomerList () {
-        axios.get(URL_API+`/customer/`)
+        axios.get(URL_API+`/rest/customer/`, OPTIONS)
         .then((customerData) => {
     
         this.setState({myCustomerName: customerData.data});  
@@ -219,7 +219,7 @@ export default class TaskTable extends React.Component {
     }
 
     handleSelect = event => {
-        this.setState({customer: event.target.value});
+        this.setState({customerId: event.target.value});
     }
 
     render() {
@@ -263,10 +263,10 @@ export default class TaskTable extends React.Component {
                                                                             
                                                                             <div className="col-md-6 mb-3">
                                                                                 <label>Client</label>
-                                                                                    <select value={this.state.customer} onChange={this.handleSelect} className="form-control">
+                                                                                    <select value={this.state.customerId} onChange={this.handleSelect} className="form-control">
                                                                                     <option></option>
                                                                                     {myCustomerName.map((e) => (                                                                                  
-                                                                                    <option id={e.id}>{e.customerName}</option>
+                                                                                    <option value={e.id}>{e.customerName}</option>
                                                                                     ))}        
                                                                                     </select>
                                                                                 </div>   

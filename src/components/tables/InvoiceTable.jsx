@@ -6,11 +6,9 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
 import { URL_API } from '../../config.js';
+import { OPTIONS } from '../../config.js';
 
 const axios = require("axios");
-const options = {
-    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-};
 
 const customerDetails = (e) => {
     //console.log(e.target);
@@ -222,7 +220,7 @@ export default class InvoiceTable extends React.Component {
     }
 
     showInvoiceList() {
-        axios.get(URL_API + `/invoice/`)
+        axios.get(URL_API + `/rest/invoice/`, OPTIONS)
             .then((invoices) => {
 
                 this.setState({ invoicesData: invoices.data });

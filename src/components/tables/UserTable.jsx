@@ -5,14 +5,11 @@ import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePe
 import { URL_API } from '../../config.js';
 import '@trendmicro/react-modal/dist/react-modal.css';
 import Modal from '@trendmicro/react-modal';
+import { OPTIONS } from '../../config.js';
 
 const axios = require("axios");
 
 const { SearchBar } = Search;
-
-const options = {
-    headers: {"Content-Type": "application/json","Accept": "application/json" },
-  };
 
 const userDetails = (e) => {
 
@@ -115,7 +112,7 @@ export default class UserTable extends React.Component {
     }
 
     showUserList() {
-        axios.get(URL_API + `/user/team`)
+        axios.get(URL_API + `/rest/user/team`, OPTIONS)
             .then((users) => {
                 
                 this.setState({ teamMembers: users.data });
@@ -148,7 +145,7 @@ export default class UserTable extends React.Component {
             role: {id: 2}
         }
 
-        axios.post(URL_API + `/user/save`, userData, options)
+        axios.post(URL_API + `/rest/user/save`, userData, OPTIONS)
         .then((response) => {
             console.log(response)
         }).catch((exception) => {

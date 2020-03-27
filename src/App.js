@@ -8,11 +8,11 @@ import {BrowserRouter} from 'react-router-dom';
 
 function App() {
   return (
-    
+
     <BrowserRouter>
-      <MasterContainer/>
-      {/* <SignIn/> */}
-    </BrowserRouter>
+      {/* <MasterContainer/> */}
+      <SignIn/>
+     </BrowserRouter> 
 
   );
 }

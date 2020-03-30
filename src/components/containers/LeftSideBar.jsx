@@ -50,14 +50,7 @@ export default class LeftSideBar extends React.Component {
                 <div className="sidebar-scrollbar">
                     {/* <!-- sidebar menu --> */}
                     <ul className="nav sidebar-inner" id="sidebar-menu">
-                        
-                        <li className={this.state.class} onClick={this.handleClick}  >
-                            <Link className="sidenav-item-link" href="javascript:void(0)" to="/inbox">
-                                <i className="mdi mdi-email-outline"></i>
-                                <span className="nav-text">Tickets</span> <b className="caret"></b>
-                            </Link>
-                        </li>
-                        
+                                                
                         <li className={this.state.class} onClick={this.handleClick} >
                             <Link className="sidenav-item-link" href="javascript:void(0)" to="/main">
                                 <i className="mdi mdi-view-dashboard-outline"></i>

@@ -11,7 +11,10 @@ const Landing = () => {
       <div className='dark-overlay'>
         <div className='landing-inner'>
           <h1 className='x-large'>Team Task Manager</h1>
-          <p className='lead'>Manage your team tasks and be super productive</p>
+          <p className='lead'>
+            Manage your team tasks in one place! Be super productive and make
+            more money!
+          </p>
           <div className='buttons'>
             <Link to='/register' className='btn btn-primary mt-3 mr-3'>
               Sign Up

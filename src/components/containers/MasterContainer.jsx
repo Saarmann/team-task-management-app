@@ -8,6 +8,10 @@ import TimeTable from '../tables/TimeTable';
 import UserInfo from './userInfo';
 import UserTable from '../tables/UserTable';
 import TaskTable from '../tables/TaskTable';
+import SignUp from './../pages/SignUp';
+import SignIn from './../pages/SignIn';
+import Landing from './../pages/Landing';
+import Dashboard from './Dashboard';
 
 export default class MasterContainer extends React.Component {
   constructor(props) {
@@ -16,7 +20,7 @@ export default class MasterContainer extends React.Component {
 
   render() {
     return (
-      <body
+      <div
         className='header-fixed sidebar-fixed sidebar-dark header-light'
         id='body'
       >
@@ -27,7 +31,10 @@ export default class MasterContainer extends React.Component {
 
           <div className='page-wrapper'>
             <Header />
-
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/register' component={SignUp} />
+            <Route exact path='/login' component={SignIn} />
+            <Route exact path='/dashboard' component={Dashboard} />
             <Switch>
               <Route path='/team' component={UserTable} />
               <Route path='/user' component={UserInfo} />
@@ -39,7 +46,7 @@ export default class MasterContainer extends React.Component {
             </Switch>
           </div>
         </div>
-      </body>
+      </div>
     );
   }
 }

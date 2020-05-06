@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   return (
@@ -60,6 +61,13 @@ const SignIn = () => {
                       <button className='btn btn-lg btn-primary btn-block mb-4'>
                         Sign In
                       </button>
+                      <p>
+                        Don't have an account?
+                        <Link to='/register' className='text-blue'>
+                          {' '}
+                          Sign up
+                        </Link>
+                      </p>
                     </div>
                   </div>
                 </form>

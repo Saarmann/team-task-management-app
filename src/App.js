@@ -3,17 +3,22 @@ import './App.css';
 import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import Landing from './components/pages/Landing';
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Dashboard from './components/containers/Dashboard';
 import MasterContainer from './components/containers/MasterContainer';
-import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <MasterContainer /> */}
-      <Landing />
+      {/* <Route exact path='/' component={Landing} />
 
-      {/* <SignIn /> */}
-      {/* <SignUp /> */}
+      <Switch>
+        <Route exact path='/register' component={SignUp} />
+        <Route exact path='/login' component={SignIn} />
+      </Switch> */}
+      <Dashboard />
+      {/* <MasterContainer /> */}
     </BrowserRouter>
   );
 }

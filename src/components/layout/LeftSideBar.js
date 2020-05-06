@@ -35,7 +35,7 @@ const LeftSideBar = () => {
         {/* <!-- sidebar menu --> */}
         <ul className='nav sidebar-inner' id='sidebar-menu'>
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/main'>
+            <Link className='sidenav-item-link' to='/dashboard'>
               <i className='mdi mdi-view-dashboard-outline'></i>
               <span className='nav-text'>Dashboard</span>{' '}
               <b className='caret'></b>
@@ -43,7 +43,7 @@ const LeftSideBar = () => {
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/mytasks'>
+            <Link className='sidenav-item-link' to='/dashboard/mytasks'>
               <i className='mdi mdi-pencil-box-multiple'></i>
               <span className='nav-text'>My Tasks</span>{' '}
               <b className='caret'></b>
@@ -51,14 +51,14 @@ const LeftSideBar = () => {
           </li>
 
           <li className='has-sub active'>
-            <Link className='sidenav-item-link' to='/time'>
+            <Link className='sidenav-item-link' to='/dashboard/time'>
               <i className='mdi mdi-account-clock'></i>
               <span className='nav-text'>Time</span> <b className='caret'></b>
             </Link>
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/customers'>
+            <Link className='sidenav-item-link' to='/dashboard/customers'>
               <i className='mdi mdi-folder-account-outline'></i>
               <span className='nav-text'>Customers</span>{' '}
               <b className='caret'></b>
@@ -66,7 +66,7 @@ const LeftSideBar = () => {
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/invoices'>
+            <Link className='sidenav-item-link' to='/dashboard/invoices'>
               <i className='mdi mdi-cash-multiple'></i>
               <span className='nav-text'>Invoices</span>{' '}
               <b className='caret'></b>

@@ -3,9 +3,9 @@ import Header from './../layout/Header';
 import { Route, Switch } from 'react-router-dom';
 import LeftSideBar from './../layout/LeftSideBar';
 import CustomerTablePag from '../tables/CustomerTablePagSearch';
-import InvoiceTable from '../tables/InvoiceTable';
+import InvoiceTable from '../tables/InvoiceTable1';
 import TimeTable from '../tables/TimeTable';
-import UserInfo from './userInfo';
+
 import UserTable from '../tables/UserTable';
 import TaskTable from '../tables/TaskTable';
 import SignUp from './../pages/SignUp';
@@ -37,8 +37,7 @@ export default class MasterContainer extends React.Component {
             <Route exact path='/dashboard' component={Dashboard} />
             <Switch>
               <Route path='/team' component={UserTable} />
-              <Route path='/user' component={UserInfo} />
-              <Route path='/main' component={UserInfo} />
+
               <Route path='/mytasks' component={TaskTable} />
               <Route path='/time' component={TimeTable} />
               <Route path='/customers' component={CustomerTablePag} />

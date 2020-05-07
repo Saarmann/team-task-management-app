@@ -4,7 +4,7 @@ import LeftSideBar from './../layout/LeftSideBar';
 import Header from './../layout/Header';
 import TaskTable from './../tables/TaskTable';
 import TimeTable from './../tables/TimeTable';
-
+import CustomerTable from './../tables/CustomerTable';
 import InvoiceTable from './../tables/InvoiceTable';
 
 const Dashboard = () => {
@@ -23,7 +23,7 @@ const Dashboard = () => {
           <Switch>
             <Route path='/dashboard/mytasks' component={TaskTable} />
             <Route path='/dashboard/time' component={TimeTable} />
-
+            <Route path='/dashboard/customers' component={CustomerTable} />
             <Route path='/dashboard/invoices' component={InvoiceTable} />
           </Switch>
         </div>

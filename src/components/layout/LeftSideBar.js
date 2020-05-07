@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const LeftSideBar = () => {
   return (
     <div id='sidebar' className='sidebar sidebar-with-footer'>
       {/* <!-- Aplication Brand --> */}
       <div className='app-brand'>
-        <a href='/index.html' title='Super Dashboard'>
+        <Link to='/dashboard/main'>
           <svg
             className='brand-icon'
             preserveAspectRatio='xMidYMid'
@@ -28,49 +28,70 @@ const LeftSideBar = () => {
             </g>
           </svg>
           <span className='brand-name text-truncate'>Tasker App</span>
-        </a>
+        </Link>
       </div>
       {/* <!-- begin sidebar scrollbar --> */}
       <div className='sidebar-scrollbar'>
         {/* <!-- sidebar menu --> */}
+
         <ul className='nav sidebar-inner' id='sidebar-menu'>
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/dashboard'>
+            <NavLink
+              className='sidenav-item-link'
+              activeClassName='sidenav-item-link-active'
+              to='/dashboard/main'
+            >
               <i className='mdi mdi-view-dashboard-outline'></i>
               <span className='nav-text'>Dashboard</span>{' '}
               <b className='caret'></b>
-            </Link>
+            </NavLink>
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/dashboard/mytasks'>
+            <NavLink
+              className='sidenav-item-link'
+              activeClassName='sidenav-item-link-active'
+              to='/dashboard/mytasks'
+            >
               <i className='mdi mdi-pencil-box-multiple'></i>
               <span className='nav-text'>My Tasks</span>{' '}
               <b className='caret'></b>
-            </Link>
-          </li>
-
-          <li className='has-sub active'>
-            <Link className='sidenav-item-link' to='/dashboard/time'>
-              <i className='mdi mdi-account-clock'></i>
-              <span className='nav-text'>Time</span> <b className='caret'></b>
-            </Link>
+            </NavLink>
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/dashboard/customers'>
+            <NavLink
+              className='sidenav-item-link'
+              activeClassName='sidenav-item-link-active'
+              to='/dashboard/time'
+            >
+              <i className='mdi mdi-account-clock'></i>
+              <span className='nav-text'>Time</span> <b className='caret'></b>
+            </NavLink>
+          </li>
+
+          <li className='has-sub'>
+            <NavLink
+              className='sidenav-item-link'
+              activeClassName='sidenav-item-link-active'
+              to='/dashboard/customers'
+            >
               <i className='mdi mdi-folder-account-outline'></i>
               <span className='nav-text'>Customers</span>{' '}
               <b className='caret'></b>
-            </Link>
+            </NavLink>
           </li>
 
           <li className='has-sub'>
-            <Link className='sidenav-item-link' to='/dashboard/invoices'>
+            <NavLink
+              className='sidenav-item-link active'
+              activeClassName='sidenav-item-link-active'
+              to='/dashboard/invoices'
+            >
               <i className='mdi mdi-cash-multiple'></i>
               <span className='nav-text'>Invoices</span>{' '}
               <b className='caret'></b>
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

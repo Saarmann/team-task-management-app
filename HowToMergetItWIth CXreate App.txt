@@ -1,5 +1,0 @@
-
-
-1) git clone into empty local directory (repository)
-2) npx create-react-app whateverapp (create node_modules)
-3) copy node_modules dir from whateverapp dir to local (1)

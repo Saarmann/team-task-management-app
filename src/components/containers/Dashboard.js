@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import LeftSideBar from './../layout/LeftSideBar';
 import Header from './../layout/Header';
 import TaskTable from './../tables/TaskTable';
-import TimeTable from './../tables/TimeTable';
+import TimeExpenseTable from './../tables/TimeExpenseTable';
 import CustomerTable from './../tables/CustomerTable';
 import InvoiceTable from './../tables/InvoiceTable';
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
           <Header />
           <Switch>
             <Route path='/dashboard/mytasks' component={TaskTable} />
-            <Route path='/dashboard/time' component={TimeTable} />
+            <Route path='/dashboard/time' component={TimeExpenseTable} />
             <Route path='/dashboard/customers' component={CustomerTable} />
             <Route path='/dashboard/invoices' component={InvoiceTable} />
           </Switch>

@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import LeftSideBar from './../layout/LeftSideBar';
 import CustomerTablePag from '../tables/CustomerTablePagSearch';
 import InvoiceTable from '../tables/InvoiceTable1';
-import TimeTable from '../tables/TimeTable';
+import TimeTable from '../tables/TimeTable1';
 
 import UserTable from '../tables/UserTable';
-import TaskTable from '../tables/TaskTable';
+import TaskTable from '../tables/TaskTable1';
 import SignUp from './../pages/SignUp';
 import SignIn from './../pages/SignIn';
 import Landing from './../pages/Landing';

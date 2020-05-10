@@ -7,6 +7,8 @@ import paginationFactory, {
   SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import { customer as myTestData } from './../data/customerData';
 
 const selectRow = {
   mode: 'checkbox',
@@ -139,7 +141,7 @@ const TimeExpenseTable = (props) => {
         <ToolkitProvider
           keyField='id'
           columns={columns}
-          //   data={this.state.taskData}
+          data={myTestData}
           search
         >
           {(toolkitprops) => {

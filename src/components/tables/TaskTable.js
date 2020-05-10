@@ -7,6 +7,7 @@ import paginationFactory, {
   PaginationListStandalone,
   SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator';
+import { customer as myTestData } from './../data/customerData';
 
 const selectRow = {
   mode: 'checkbox',
@@ -57,7 +58,7 @@ const paginationConfig = {
       text: 'All',
       value: 1000000,
     },
-  ], // A numeric array is also available. the purpose of above example is custom the text
+  ],
 };
 
 const columns = [
@@ -144,6 +145,11 @@ const columns = [
   },
 ];
 
+const timeData = {
+  client: 'Juku',
+  date: '01-01-12',
+};
+
 const defaultSorted = [
   {
     dataField: 'taskStatus',
@@ -158,7 +164,7 @@ const TaskTable = (props) => {
         <ToolkitProvider
           keyField='id'
           columns={columns}
-          //   data={this.state.taskData}
+          data={myTestData}
           search
         >
           {(toolkitprops) => {

@@ -14,7 +14,7 @@ const LeftSideBar = () => {
             height='33'
             viewBox='0 0 30 33'
           >
-            <g fill='none' fill-rule='evenodd'>
+            <g fill='none' fillRule='evenodd'>
               <path
                 className='logo-fill-blue'
                 fill='#7DBCFF'

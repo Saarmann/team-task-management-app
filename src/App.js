@@ -17,7 +17,10 @@ function App() {
         <Route exact path='/register' component={SignUp} />
         <Route exact path='/login' component={SignIn} />
       </Switch> */}
-      <Dashboard />
+
+      <SignIn />
+
+      {/* <Dashboard /> */}
       {/* <MasterContainer /> */}
     </BrowserRouter>
   );

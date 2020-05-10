@@ -1,7 +1,23 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignIn = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const onChange = (e) =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <Fragment>
       <div className='container d-flex flex-column justify-content-between vh-100'>
@@ -19,7 +35,7 @@ const SignIn = () => {
                       height='33'
                       viewBox='0 0 30 33'
                     >
-                      <g fill='none' fill-rule='evenodd'>
+                      <g>
                         <path
                           className='logo-fill-blue'
                           fill='#7DBCFF'
@@ -39,14 +55,17 @@ const SignIn = () => {
               <div className='card-body p-5'>
                 <h4 className='text-dark mb-5'>Sign In</h4>
 
-                <form action='/index.html'>
+                <form>
                   <div className='row'>
                     <div className='form-group col-md-12 mb-4'>
                       <input
                         type='text'
                         className='form-control input-lg'
                         name='username'
+                        value={formData.username}
                         placeholder='Username'
+                        onChange={(e) => onChange(e)}
+                        required
                       />
                     </div>
                     <div className='form-group col-md-12 '>
@@ -54,11 +73,17 @@ const SignIn = () => {
                         type='password'
                         className='form-control input-lg'
                         name='password'
+                        value={formData.password}
                         placeholder='Password'
+                        onChange={(e) => onChange(e)}
+                        required
                       />
                     </div>
                     <div className='col-md-12'>
-                      <button className='btn btn-lg btn-primary btn-block mb-4'>
+                      <button
+                        className='btn btn-lg btn-primary btn-block mb-4'
+                        onClick={(e) => onSubmit(e)}
+                      >
                         Sign In
                       </button>
                       <p>

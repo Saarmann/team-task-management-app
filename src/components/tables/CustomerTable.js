@@ -7,11 +7,15 @@ import paginationFactory, {
   PaginationListStandalone,
   SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator';
-import { customer as myTestData } from './../data/customerData';
 import { getCustomers } from '../../redux/actions/customer';
 import { connect } from 'react-redux';
+import { customer as myData } from '../data/customerData';
 
-const CustomerTable = (props) => {
+const CustomerTable = ({ getCustomers }) => {
+  // useEffect(() => {
+  //   getCustomers();
+  // }, [getCustomers]);
+
   const { SearchBar } = Search;
 
   const customTotal = (from, to, size) => (
@@ -106,19 +110,15 @@ const CustomerTable = (props) => {
     },
   ];
 
-  const contentTable = ({
-    paginationProps,
-    paginationTableProps,
-    getCustomers,
-  }) => {
+  const customersasd = {
+    name: 'juku',
+    address: 'address',
+  };
+
+  const contentTable = ({ paginationProps, paginationTableProps }) => {
     return (
       <div className='card-body'>
-        <ToolkitProvider
-          keyField='id'
-          columns={columns}
-          data={myTestData}
-          search
-        >
+        <ToolkitProvider keyField='id' columns={columns} data={myData} search>
           {(toolkitprops) => {
             return (
               <div>
@@ -128,7 +128,11 @@ const CustomerTable = (props) => {
                   </div>
 
                   <div>
-                    <button type='button' className='btn btn-success'>
+                    <button
+                      type='button'
+                      className='btn btn-success'
+                      onClick={getCustomers}
+                    >
                       Add new customer
                     </button>
                   </div>
@@ -191,6 +195,11 @@ const CustomerTable = (props) => {
   );
 };
 
-CustomerTable.propTypes = {};
+CustomerTable.propTypes = {
+  getCustomers: PropTypes.func.isRequired,
+  customers: PropTypes.object.isRequired,
+};
 
-export default CustomerTable;
+const mapStateToProps = (state) => {};
+
+export default connect(mapStateToProps, { getCustomers })(CustomerTable);

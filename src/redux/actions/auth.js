@@ -26,8 +26,29 @@ export const login = (data) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    dispatch(loadUser());
+  } catch (err) {
+    console.error(err.message);
+  }
+};
 
-    localStorage.setItem('jwt', res.data.jwt);
+//Load user
+export const loadUser = () => async (dispatch) => {
+  try {
+    const user = localStorage.username;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.jwt}`,
+      },
+    };
+
+    const res = await axios.get(`${URL_API}/rest/user/${user}`, config);
+
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
   } catch (err) {
     console.error(err.message);
   }

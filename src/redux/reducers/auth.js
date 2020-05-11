@@ -9,21 +9,26 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  jwt: localStorage.getItem('jwt'),
   isAuthenticated: null,
-  loading: true,
   user: null,
 };
 
 export default function (state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
+  switch (action.type) {
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token);
+      localStorage.setItem('jwt', action.payload.jwt);
       return {
         ...state,
-        ...payload,
+        ...action.payload,
+        isAuthenticated: true,
+      };
+
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
       };
 
     default:

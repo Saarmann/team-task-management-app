@@ -22,9 +22,9 @@ function App() {
         <Route exact path='/login' component={SignIn} />
       </Switch> */}
 
-        <SignIn />
+        {/* <SignIn /> */}
 
-        {/* <Dashboard /> */}
+        <Dashboard />
         {/* <MasterContainer /> */}
       </BrowserRouter>
     </Provider>

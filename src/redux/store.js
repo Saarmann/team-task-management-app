@@ -11,7 +11,7 @@ const middleWare = [thunk];
 const store = createStore(
   combineReducers({
     auth: auth,
-    customer: customer,
+    customers: customer,
   }),
   initialState,
   composeWithDevTools(applyMiddleware(...middleWare))

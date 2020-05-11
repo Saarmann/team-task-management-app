@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../redux/actions/auth';
 
-const SignIn = () => {
+const SignIn = ({ login }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -15,7 +18,7 @@ const SignIn = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    login(formData);
   };
 
   return (
@@ -55,7 +58,7 @@ const SignIn = () => {
               <div className='card-body p-5'>
                 <h4 className='text-dark mb-5'>Sign In</h4>
 
-                <form>
+                <form onSubmit={(e) => onSubmit(e)}>
                   <div className='row'>
                     <div className='form-group col-md-12 mb-4'>
                       <input
@@ -79,13 +82,15 @@ const SignIn = () => {
                         required
                       />
                     </div>
+                    <div className='form-group col-md-12 '>
+                      <input
+                        type='submit'
+                        className='btn btn-lg btn-primary btn-block mb-2'
+                        value='Sign In'
+                      />
+                    </div>
+
                     <div className='col-md-12'>
-                      <button
-                        className='btn btn-lg btn-primary btn-block mb-4'
-                        onClick={(e) => onSubmit(e)}
-                      >
-                        Sign In
-                      </button>
                       <p>
                         Don't have an account?
                         <Link to='/register' className='text-blue'>
@@ -105,4 +110,8 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, { login })(SignIn);

@@ -26,8 +26,9 @@ export const login = (data) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    localStorage.setItem('jwt', res.data.jwt);
   } catch (err) {
     console.error(err.message);
-    res.status(403).send('Invalid username or password!');
   }
 };

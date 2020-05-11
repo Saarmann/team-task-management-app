@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -8,6 +8,8 @@ import paginationFactory, {
   SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator';
 import { customer as myTestData } from './../data/customerData';
+import { getCustomers } from '../../redux/actions/customer';
+import { connect } from 'react-redux';
 
 const CustomerTable = (props) => {
   const { SearchBar } = Search;
@@ -104,7 +106,11 @@ const CustomerTable = (props) => {
     },
   ];
 
-  const contentTable = ({ paginationProps, paginationTableProps }) => {
+  const contentTable = ({
+    paginationProps,
+    paginationTableProps,
+    getCustomers,
+  }) => {
     return (
       <div className='card-body'>
         <ToolkitProvider

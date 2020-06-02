@@ -18,7 +18,6 @@ export const getCustomers = () => async (dispatch) => {
       payload: res.data,
     });
 
-    console.log(res.data);
   } catch (err) {
     console.error();
   }

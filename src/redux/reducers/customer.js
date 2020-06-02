@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
     case GET_CUSTOMERS:
       return {
         ...state,
-        customers: action.payload.data,
+        customers: action.payload,
       };
 
     default:

@@ -22,9 +22,9 @@ const SignIn = ({ login, isAuthenticated }) => {
     localStorage.setItem('username', formData.username);
   };
 
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard/main' />;
-  // }
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -61,7 +61,7 @@ const SignIn = ({ login, isAuthenticated }) => {
                 </div>
               </div>
               <div className='card-body p-5'>
-                <h4 className='text-dark mb-5'>Sign In</h4>
+                <h4 className='text-dark mb-5'>Log In</h4>
 
                 <form onSubmit={(e) => onSubmit(e)}>
                   <div className='row'>
@@ -91,7 +91,7 @@ const SignIn = ({ login, isAuthenticated }) => {
                       <input
                         type='submit'
                         className='btn btn-lg btn-primary btn-block mb-2'
-                        value='Sign In'
+                        value='Log In'
                       />
                     </div>
 
@@ -117,7 +117,7 @@ const SignIn = ({ login, isAuthenticated }) => {
 
 SignIn.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

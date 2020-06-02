@@ -6,12 +6,17 @@ import Landing from '../pages/Landing';
 import Dashboard from './Dashboard';
 
 export const MasterContainer = () => {
+
+    // if (isAuthenticated) {
+    //   return <Redirect to='/dashboard' />;
+    // }
+
     return (
         <Fragment>
             <Route exact path='/' component={Landing} />
             <Route exact path='/register' component={SignUp} />
             <Route exact path='/login' component={SignIn} />
-            <Route exact path='/dashboard' component={Dashboard} />
+            <Route path='/dashboard' component={Dashboard} />
         </Fragment>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -10,11 +10,14 @@ import paginationFactory, {
 import { getCustomers } from '../../redux/actions/customer';
 import { connect } from 'react-redux';
 import { customer as myData } from '../data/customerData';
+import { customerTableHead } from './tableHeadings';
 
-const CustomerTable = ({ getCustomers }) => {
-  // useEffect(() => {
-  //   getCustomers();
-  // }, [getCustomers]);
+const CustomerTable = ({ getCustomers, customer: { customers } }) => {
+
+  useEffect(() => {
+    getCustomers();
+    console.log("tere");
+  }, []);
 
   const { SearchBar } = Search;
 
@@ -62,63 +65,12 @@ const CustomerTable = ({ getCustomers }) => {
     ],
   };
 
-  const columns = [
-    {
-      dataField: 'customerName',
-      text: 'Customer name',
-      sort: true,
-    },
-    {
-      dataField: 'registrationCode',
-      text: 'Registration No.',
-    },
-    {
-      dataField: 'vatNo',
-      text: 'VAT No.',
-    },
-    {
-      dataField: 'address',
-      text: 'Address',
-    },
-    {
-      dataField: 'city',
-      text: 'City',
-    },
-    {
-      dataField: 'state',
-      text: 'State',
-    },
-    {
-      dataField: 'zip',
-      text: 'Zip code',
-    },
-    {
-      dataField: 'customerEmail',
-      text: 'Email',
-    },
-    {
-      dataField: 'contact',
-      text: 'Contact phone',
-    },
-    {
-      dataField: 'paymentTerm',
-      text: 'Payment term',
-    },
-    {
-      text: 'Action',
-      //   formatter: formatEditCustomerButton,
-    },
-  ];
-
-  const customersasd = {
-    name: 'juku',
-    address: 'address',
-  };
+  console.log("data");
 
   const contentTable = ({ paginationProps, paginationTableProps }) => {
     return (
       <div className='card-body'>
-        <ToolkitProvider keyField='id' columns={columns} data={myData} search>
+        <ToolkitProvider keyField='id' columns={customerTableHead} data={myData} search>
           {(toolkitprops) => {
             return (
               <div>
@@ -197,9 +149,11 @@ const CustomerTable = ({ getCustomers }) => {
 
 CustomerTable.propTypes = {
   getCustomers: PropTypes.func.isRequired,
-  customers: PropTypes.object.isRequired,
+  customers: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => {};
+const mapStateToProps = (state) => ({
+  customer: state.customer.customers
+});
 
 export default connect(mapStateToProps, { getCustomers })(CustomerTable);

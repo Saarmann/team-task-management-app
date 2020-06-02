@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import LeftSideBar from './../layout/LeftSideBar';
 import Header from './../layout/Header';
 import TaskTable from './../tables/TaskTable';
-
 import TimeExpenseTable from './../tables/TimeExpenseTable';
 import CustomerTable from './../tables/CustomerTable';
 import InvoiceTable from './../tables/InvoiceTable';

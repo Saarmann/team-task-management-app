@@ -7,7 +7,6 @@ import paginationFactory, {
   PaginationListStandalone,
   SizePerPageDropdownStandalone,
 } from 'react-bootstrap-table2-paginator';
-import { customer as myTestData } from './../data/customerData';
 
 const selectRow = {
   mode: 'checkbox',
@@ -22,6 +21,11 @@ const customTotal = (from, to, size) => (
     Showing {from} to {to} of {size} Results
   </span>
 );
+
+const datata = {
+  name: 11,
+  description: 'sdada a asda asd'
+}
 
 const paginationConfig = {
   custom: true,
@@ -164,7 +168,7 @@ const TaskTable = (props) => {
         <ToolkitProvider
           keyField='id'
           columns={columns}
-          data={myTestData}
+          data={datata}
           search
         >
           {(toolkitprops) => {

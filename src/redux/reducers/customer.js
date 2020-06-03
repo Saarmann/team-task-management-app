@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
     case CREATE_CUSTOMER:
       return {
         ...state,
-        customers: [action.payload, ...state.customers],
+        customers: [...state.customers, action.payload],
       };
 
     case UPDATE_CUSTOMER:

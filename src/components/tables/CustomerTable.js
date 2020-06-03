@@ -9,10 +9,11 @@ import paginationFactory, {
 } from 'react-bootstrap-table2-paginator';
 import { getCustomers } from '../../redux/actions/customer';
 import { connect } from 'react-redux';
-import { customer as myData } from '../data/customerData';
 import { customerTableHead } from './tableHeadings';
+import AddEditCustomerModal from '../modals/AddEditCustomerModal';
 
 const CustomerTable = ({ getCustomers, customers }) => {
+  const [openModal, modalHandler] = useState('false');
 
   useEffect(() => {
     getCustomers();
@@ -63,6 +64,10 @@ const CustomerTable = ({ getCustomers, customers }) => {
       },
     ],
   };
+
+  // if (openModal) {
+  //   return <AddEditCustomerModal />
+  // }
 
   const contentTable = ({ paginationProps, paginationTableProps }) => {
     return (

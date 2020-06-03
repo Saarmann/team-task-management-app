@@ -8,7 +8,6 @@ import paginationFactory, {
 } from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
-import { customer as myTestData } from './../data/customerData';
 
 const selectRow = {
   mode: 'checkbox',
@@ -61,6 +60,11 @@ const paginationConfig = {
     },
   ], // A numeric array is also available. the purpose of above example is custom the text
 };
+
+const datatadas = {
+  name: 'sa 1 1dsqa',
+  decriptiopn: 'asd ad sa'
+}
 
 const columns = [
   {
@@ -141,7 +145,7 @@ const TimeExpenseTable = (props) => {
         <ToolkitProvider
           keyField='id'
           columns={columns}
-          data={myTestData}
+          data={datatadas}
           search
         >
           {(toolkitprops) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Modal from '@trendmicro/react-modal';
 
 const AddEditCustomerModal = ({ size = 'sm', closeModal, ...props }) => (
@@ -18,7 +17,5 @@ const AddEditCustomerModal = ({ size = 'sm', closeModal, ...props }) => (
     </Modal.Footer>
   </Modal>
 );
-
-AddEditCustomerModal.propTypes = {};
 
 export default AddEditCustomerModal;

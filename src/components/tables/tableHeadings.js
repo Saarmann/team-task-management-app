@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const customerTableHead = [
     {
         dataField: 'customerName',
@@ -42,6 +44,19 @@ export const customerTableHead = [
     },
     {
         text: 'Action',
-        //   formatter: formatEditCustomerButton,
+        formatter: (cell, row) => {
+            return (
+                <div>
+                    <button
+                        type='button'
+                        className='btn btn-outline-info mdi mdi-pencil-outline btn-sm ml-2'
+                    ></button>
+                    <button
+                        type='button'
+                        className='btn btn-outline-success mdi mdi-check btn-sm ml-2'
+                    ></button>
+                </div>
+            );
+        },
     },
 ];

@@ -12,11 +12,10 @@ import { connect } from 'react-redux';
 import { customer as myData } from '../data/customerData';
 import { customerTableHead } from './tableHeadings';
 
-const CustomerTable = ({ getCustomers }, customerx) => {
+const CustomerTable = ({ getCustomers, customers }) => {
 
   useEffect(() => {
     getCustomers();
-    console.log(customerx);
   }, []);
 
   const { SearchBar } = Search;
@@ -65,12 +64,10 @@ const CustomerTable = ({ getCustomers }, customerx) => {
     ],
   };
 
-  console.log("data");
-
   const contentTable = ({ paginationProps, paginationTableProps }) => {
     return (
       <div className='card-body'>
-        <ToolkitProvider keyField='id' columns={customerTableHead} data={myData} search>
+        <ToolkitProvider keyField='id' columns={customerTableHead} data={customers} search>
           {(toolkitprops) => {
             return (
               <div>
@@ -83,7 +80,7 @@ const CustomerTable = ({ getCustomers }, customerx) => {
                     <button
                       type='button'
                       className='btn btn-success'
-                      onClick={getCustomers}
+                      onClick={() => console.log('miki')}
                     >
                       Add new customer
                     </button>
@@ -117,7 +114,7 @@ const CustomerTable = ({ getCustomers }, customerx) => {
             );
           }}
         </ToolkitProvider>
-      </div>
+      </div >
     );
   };
 
@@ -149,11 +146,11 @@ const CustomerTable = ({ getCustomers }, customerx) => {
 
 CustomerTable.propTypes = {
   getCustomers: PropTypes.func.isRequired,
-  customer: PropTypes.array.isRequired,
+  customers: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => {
-  const { customerx } = state.customer.customers;
-};
+const mapStateToProps = (state) => ({
+  customers: state.customer.customers
+});
 
 export default connect(mapStateToProps, { getCustomers })(CustomerTable);

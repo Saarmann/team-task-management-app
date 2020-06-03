@@ -16,6 +16,18 @@ export default function (state = initialState, action) {
         customers: action.payload,
       };
 
+    case CREATE_CUSTOMER:
+      return {
+        ...state,
+        customers: [action.payload, ...state.customers],
+      };
+
+    case UPDATE_CUSTOMER:
+      return {
+        ...state,
+        customers: action.payload,
+      };
+
     default:
       return state;
   }

@@ -20,5 +20,45 @@ export const getCustomers = () => async (dispatch) => {
 
   } catch (err) {
     console.error();
-  }
+  };
+};
+
+export const updateCustomer = (customerData) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.jwt}`,
+    },
+  };
+
+  try {
+    const res = await axios.post(`${URL_API}/rest/customer/edit`, customerData, config);
+
+    dispatch({
+      type: UPDATE_CUSTOMER,
+      payload: res.data,
+    });
+
+  } catch (err) {
+    console.error();
+  };
+};
+
+export const createCustomer = (customerData) => async (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.jwt}`,
+    },
+  };
+
+  try {
+    const res = await axios.post(`${URL_API}/rest/customer/save`, customerData, config);
+
+    dispatch({
+      type: CREATE_CUSTOMER,
+      payload: res.data,
+    });
+
+  } catch (err) {
+    console.error();
+  };
 };

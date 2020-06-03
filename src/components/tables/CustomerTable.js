@@ -12,11 +12,11 @@ import { connect } from 'react-redux';
 import { customer as myData } from '../data/customerData';
 import { customerTableHead } from './tableHeadings';
 
-const CustomerTable = ({ getCustomers, customer: { customers } }) => {
+const CustomerTable = ({ getCustomers }, customerx) => {
 
   useEffect(() => {
     getCustomers();
-    console.log("tere");
+    console.log(customerx);
   }, []);
 
   const { SearchBar } = Search;
@@ -149,11 +149,11 @@ const CustomerTable = ({ getCustomers, customer: { customers } }) => {
 
 CustomerTable.propTypes = {
   getCustomers: PropTypes.func.isRequired,
-  customers: PropTypes.array.isRequired,
+  customer: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  customer: state.customer.customers
-});
+const mapStateToProps = (state) => {
+  const { customerx } = state.customer.customers;
+};
 
 export default connect(mapStateToProps, { getCustomers })(CustomerTable);
